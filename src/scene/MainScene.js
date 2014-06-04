@@ -21,15 +21,28 @@ tm.define("kumabang.MainScene", {
 
     init: function() {
         this.superInit();
-        this.background = "rgba(0, 0, 0, 1.0)";
+        this.background = "rgba(0, 0, 0, 0.0)";
 
         //マルチタッチ初期化
         this.touches = tm.input.TouchesEx(this);
         
+        //レイヤー準備
+        this.panelLayer = tm.app.Object2D().addChildTo(this);
+        this.playerLayer = tm.app.Object2D().addChildTo(this);
+        this.itemLayer = tm.app.Object2D().addChildTo(this);
+        
         //パネル準備
         this.panels = [];
-        var p = kumabang.Panel().addChildTo(this);
-        
+        for (var x = 0; x < 5; x++){
+            for (var y = 0; y < 5; y++){
+                var p = kumabang.Panel().addChildTo(this.panelLayer);
+                p.x = x*PN_W+PN_OffX;
+                p.y = y*PN_H+PN_OffY;
+                this.panels.push(p);
+            }
+        }
+        kumabang.createSpriteSheet();
+        this.player = kumabang.Player().addChildTo(this.playerLayer);
     },
 
     update: function() {

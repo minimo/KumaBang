@@ -13,12 +13,16 @@ mt = new MersenneTwister();
 DEBUG = false;
 
 //スクリーンサイズ
-SC_W = 320;
-SC_H = 320;
+SC_W = 640/2;
+SC_H = 960/2;
 
 //パネルサイズ
 PN_W = 60;
 PN_H = 60;
+
+//パネル位置オフセット    
+PN_OffX = 30+10;
+PN_OffY = 60+10;
 
 
 //フレームレート
@@ -42,3 +46,4 @@ tm.main(function() {
     app = kumabang.CanvasApp("#world");
     app.run();
 });
+

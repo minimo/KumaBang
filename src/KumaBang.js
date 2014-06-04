@@ -13,10 +13,6 @@ kumabang = {
 tm.define("kumabang.CanvasApp", {
     superClass: tm.app.CanvasApp,
 
-    //パネル位置オフセット    
-    panelOffsetX: 0,
-    panelOffsetY: 0,
-
     init: function(id) {
         this.superInit(id);
         this.resize(SC_W, SC_H).fitWindow();
@@ -47,4 +43,26 @@ tm.define("kumabang.CanvasApp", {
     },
 });
 
-
+//スプライトシート作成
+kumabang.createSpriteSheet = function() {
+    player = tm.asset.SpriteSheet({
+        image: "player",
+        frame: {
+            width: 32,
+            height: 32,
+            count: 18
+        },
+        animations: {
+            "stop": {
+                frames:[0],
+                next: "stop",
+                frequency: 1,
+            },
+            "move": {
+                frames:[1,2,3],
+                next: "move",
+                frequency: 5,
+            },
+        },
+    });
+};
