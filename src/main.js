@@ -13,8 +13,8 @@ mt = new MersenneTwister();
 DEBUG = false;
 
 //スクリーンサイズ
-SC_W = 640;
-SC_H = 640;
+SC_W = 320;
+SC_H = 320;
 
 //フレームレート
 fps = 30;

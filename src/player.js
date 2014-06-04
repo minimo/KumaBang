@@ -1,10 +1,8 @@
 /*
- *
- * PiyoPiyoBangBang
- *
- * player.js
- * プレイヤー管理クラス
- *
+ *  player.js
+ *  2014/06/04
+ *  @auther minimo  
+ *  This Program is MIT license.
  */
 
 //プレイヤーキャラクター管理クラス
@@ -13,14 +11,13 @@ tm.define("Player", {
 
     init: function() {
         //親クラスの初期化
-        this.superInit(hiyokoSS, 32, 32);
+        this.superInit("player", 32, 32);
     },
     update: function() {
         //移動してたらアニメーションする        
         if (this.bx != this.x || this.by != this.y) {
             if (this.nowAnimation !== "move") this.gotoAndPlay("move");
             this.nowAnimation = "move";
-//            if (this.currentAnimation.next.indexOf("move", 0) === -1) this.gotoAndPlay("move");
         } else {
             this.nowAnimation = "stop";
             this.gotoAndPlay("stop");
