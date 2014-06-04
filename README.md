@@ -1,4 +1,4 @@
-KumaBang
+KumaKuma☆BangBang
 ========
 
 パズルゲーム
