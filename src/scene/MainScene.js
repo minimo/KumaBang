@@ -12,12 +12,24 @@ tm.define("kumabang.MainScene", {
     //マルチタッチ補助クラス
     touches: null,
     touchID: -1,
+    
+    //パネル配列
+    panels: null,
+
+    //経過時間    
+    time: 0,
 
     init: function() {
         this.superInit();
         this.background = "rgba(0, 0, 0, 1.0)";
 
+        //マルチタッチ初期化
         this.touches = tm.input.TouchesEx(this);
+        
+        //パネル準備
+        this.panels = [];
+        var p = kumabang.Panel().addChildTo(this);
+        
     },
 
     update: function() {

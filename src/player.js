@@ -6,7 +6,7 @@
  */
 
 //プレイヤーキャラクター管理クラス
-tm.define("Player", {
+tm.define("kumabang.Player", {
     superClass: "tm.display.AnimationSprite",
 
     init: function() {

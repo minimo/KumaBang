@@ -13,6 +13,10 @@ kumabang = {
 tm.define("kumabang.CanvasApp", {
     superClass: tm.app.CanvasApp,
 
+    //パネル位置オフセット    
+    panelOffsetX: 0,
+    panelOffsetY: 0,
+
     init: function(id) {
         this.superInit(id);
         this.resize(SC_W, SC_H).fitWindow();
