@@ -8,6 +8,12 @@
 tm.define("kumabang.Panel", {
     superClass: "tm.display.Sprite",
 
+    //選択中フラグ
+    select: false,
+    
+    //選択＆移動不可フラグ
+    disable: false,
+
     init: function() {
         //親クラスの初期化
         this.superInit("panel", PN_W, PN_H);
@@ -17,6 +23,8 @@ tm.define("kumabang.Panel", {
     update: function() {
     },
     pick: function() {
+        this.select = true;
+        this.setScale(1.1, 1.1);
     },
     drop: function() {
     },

@@ -49,18 +49,35 @@ tm.define("kumabang.MainScene", {
         var kb = app.keyboard;
         this.time++;
     },
+
+    //パネル判定    
+    panelCheck: function(x, y) {
+        var len = this.panels.length;
+        for (var i = 0; i< len; i++) {
+            var p = this.panel[i];
+            if (p.disable)continue;
+            if (p.x-PN_W/2 < x && x < p.x+PN_W/2 && p.y-PN_H/2 < y && y < p.y+PN_H/2) {
+                return p;
+            }
+        }
+        return null;
+    },
     
     //タッチorクリック開始処理
     ontouchesstart: function(e) {
         this.touchID = e.ID;
+        var sx = e.pointing.x;
+        var sy = e.pointing.y;
     },
 
     //タッチorクリック移動処理
     ontouchesmove: function(e) {
+        if (this.touchID != e.ID) return;
     },
 
     //タッチorクリック終了処理
     ontouchesend: function(e) {
+        if (this.touchID != e.ID) return;
     },
 
 });
