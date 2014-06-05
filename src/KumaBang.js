@@ -45,12 +45,33 @@ tm.define("kumabang.CanvasApp", {
 
 //スプライトシート作成
 kumabang.createSpriteSheet = function() {
+    egg = tm.asset.SpriteSheet({
+        image: "enter",
+        frame: {
+            width: 32,
+            height: 32,
+            count: 15,
+        },
+        animations: {
+            "stop": {
+                frames:[14],
+                next: "stop",
+                frequency: 1,
+            },
+            "enter": {
+                frames:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+                next: "stop",
+                frequency: 1,
+            },
+        },
+    });
+
     player = tm.asset.SpriteSheet({
         image: "player",
         frame: {
             width: 32,
             height: 32,
-            count: 18
+            count: 18,
         },
         animations: {
             "stop": {
@@ -65,4 +86,5 @@ kumabang.createSpriteSheet = function() {
             },
         },
     });
+    
 };
