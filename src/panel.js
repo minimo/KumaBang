@@ -13,6 +13,10 @@ tm.define("kumabang.Panel", {
     
     //選択＆移動不可フラグ
     disable: false,
+    
+    //ステージ上パネル位置
+    stageX: 0,
+    stageY: 0,
 
     init: function() {
         //親クラスの初期化
@@ -20,13 +24,22 @@ tm.define("kumabang.Panel", {
         this.id = -1;
         this.pattern = 1;
     },
+
     update: function() {
     },
+
     pick: function() {
         this.select = true;
         this.setScale(1.1, 1.1);
     },
+
     drop: function() {
+    },
+
+    reverse: function() {
+        var dx = this.stageX*PN_W+PN_OffX;
+        var dy = this.stageY*PN_H+PN_OffY;
+        this.tweener.clear().to({x: dx, y: dy, scaleX: 1, scaleY: 1}, 500, "easeOutQuint");
     },
 });
 
