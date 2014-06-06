@@ -14,37 +14,46 @@ tm.define("kumabang.Panel", {
     //選択＆移動不可フラグ
     disable: false,
     
-    //ステージ上パネル位置
-    stageX: 0,
-    stageY: 0,
+    //マップ上パネル位置
+    mapX: 0,
+    mapY: 0,
 
     init: function() {
         //親クラスの初期化
         this.superInit("panel", PN_W, PN_H);
         this.id = -1;
         this.pattern = 1;
+        
+        //デバッグ用
+        if (DEBUG) {
+            var that = this;
+            var lb = this.rateLabel = tm.display.OutlineLabel("50%", 30).addChildTo(this);
+            lb.x = 0;
+            lb.y = 0;
+            lb.fontFamily = "'Orbitron'";
+            lb.align     = "center";
+            lb.baseline  = "middle";
+            lb.fontSize = 20;
+            lb.fontWeight = 700;
+            lb.outlineWidth = 2;
+            lb.update = function() {
+                this.text = that.mapX+":"+that.mapY;
+            };
+        }
     },
 
     update: function() {
     },
     
-    moveTo: function(stageX, stageY) {
-        var dx = stageX*PN_W+PN_OffX;
-        var dy = stageY*PN_H+PN_OffY;
+    moveTo: function(x, y) {
+        var dx = x*PN_W+PN_OffX;
+        var dy = y*PN_H+PN_OffY;
         this.tweener.clear().to({x: dx, y: dy}, 200, "easeOutQuint");
     },
 
-    pick: function() {
-        this.select = true;
-        this.setScale(1.1, 1.1);
-    },
-
-    drop: function() {
-    },
-
     reverse: function() {
-        var dx = this.stageX*PN_W+PN_OffX;
-        var dy = this.stageY*PN_H+PN_OffY;
+        var dx = this.mapX*PN_W+PN_OffX;
+        var dy = this.mapY*PN_H+PN_OffY;
         this.tweener.clear().to({x: dx, y: dy, scaleX: 1, scaleY: 1}, 200, "easeOutQuint");
     },
 });

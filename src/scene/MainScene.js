@@ -26,6 +26,8 @@ tm.define("kumabang.MainScene", {
     moveY: 0,
     beforeX: 0,
     beforeY: 0,
+    offsetX: 0,
+    offsetY: 0,
 
     //経過時間
     time: 0,
@@ -48,6 +50,8 @@ tm.define("kumabang.MainScene", {
         //プレイヤー準備        
         kumabang.createSpriteSheet();
         this.player = kumabang.Player().addChildTo(this.playerLayer);
+        
+        this.initPanels();
     },
     
     //パネル初期化
@@ -61,23 +65,21 @@ tm.define("kumabang.MainScene", {
         ];
 
         this.panels = [];
-        for (var x = 0; x < 5; x++){
-            for (var y = 0; y < 5; y++){
+        for (var x = 0; x < MAP_W; x++){
+            for (var y = 0; y < MAP_H; y++){
                 var p = kumabang.Panel().addChildTo(this.panelLayer);
                 p.x = x*PN_W+PN_OffX;
                 p.y = y*PN_H+PN_OffY;
-                p.stageX = x;
-                p.stageY = y;
+                p.mapX = x;
+                p.mapY = y;
+                p.pattern = rand(1,7);
                 this.panels.push(p);
             }
         }
-    }
+    },
 
     update: function() {
         var kb = app.keyboard;
-        if (this.selectPanel) {
-            var sp = this.selectPanel;
-        }
         this.time++;
     },
 
@@ -92,9 +94,9 @@ tm.define("kumabang.MainScene", {
         for (var i = 0; i< len; i++) {
             var p = this.panels[i];
             if (p.disable)continue;
-            if (p.x-PN_W/2 < x && x < p.x+PN_W/2 && p.y-PN_H/2 < y && y < p.y+PN_H/2) {
-                return p;
-            }
+            var px = p.x-PN_W_HALF;
+            var py = p.y-PN_H_HALF;
+            if (px < x && x < px+PN_W && py < y && y < py+PN_H) return p;
         }
         return null;
     },
@@ -108,9 +110,12 @@ tm.define("kumabang.MainScene", {
         var p = this.checkPanel(sx, sy);
         if (p) {
             p.select = true;
-            p.tweener.scale(1.3, 200);
+            p.tweener.clear().scale(0.9, 200);
             p.remove().addChildTo(this.panelLayer);
             this.selectPanel = p;
+            
+            this.offsetX = sx-p.x;
+            this.offsetY = sy-p.y;
         }
     },
 
@@ -121,8 +126,13 @@ tm.define("kumabang.MainScene", {
         var sy = this.moveY = e.pointing.y;
         if (this.selectPanel) {
             var p = this.selectPanel;
-            p.x += sx-this.beforeX;
-            p.y += sy-this.beforeY;
+            p.x = sx-this.offsetX;
+            p.y = sy-this.offsetY;
+
+            var mx = p.x-PN_OffX+PN_W_HALF;
+            var my = p.y-PN_OffY+PN_H_HALF;
+            p.mapX = clamp(~~(mx/PN_W), 0, MAP_W);
+            p.mapY = clamp(~~(my/PN_H), 0, MAP_H);
         }
         this.beforeX = sx;
         this.beforeY = sy;

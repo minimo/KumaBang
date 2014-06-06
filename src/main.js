@@ -10,19 +10,25 @@ mt = new MersenneTwister();
 
 //定数
 //デバッグフラグ
-DEBUG = false;
+DEBUG = true;
 
 //スクリーンサイズ
 SC_W = 640/2;
 SC_H = 960/2;
 
+//マップパネル数
+MAP_W = 5;
+MAP_H = 5;
+
 //パネルサイズ
 PN_W = 60;
 PN_H = 60;
+PN_W_HALF = PN_W/2;
+PN_H_HALF = PN_H/2;
 
 //パネル位置オフセット    
-PN_OffX = 30+10;
-PN_OffY = 60+10;
+PN_OffX = 10+PN_W/2;
+PN_OffY = 60+PN_H/2;
 
 
 //フレームレート
