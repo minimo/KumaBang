@@ -45,16 +45,20 @@ tm.define("kumabang.Panel", {
     update: function() {
     },
     
+    move: function(x, y) {
+        this.moveTo(this.mapX, this.mapY);
+    },
+
     moveTo: function(x, y) {
         var dx = x*PN_W+PN_OffX;
         var dy = y*PN_H+PN_OffY;
-        this.tweener.clear().to({x: dx, y: dy}, 200, "easeOutQuint");
+        this.tweener.clear().to({x: dx, y: dy}, 100, "easeOutQuint");
     },
 
     reverse: function() {
         var dx = this.mapX*PN_W+PN_OffX;
         var dy = this.mapY*PN_H+PN_OffY;
-        this.tweener.clear().to({x: dx, y: dy, scaleX: 1, scaleY: 1}, 200, "easeOutQuint");
+        this.tweener.clear().to({x: dx, y: dy, scaleX: 1, scaleY: 1}, 100, "easeOutQuint");
     },
 });
 

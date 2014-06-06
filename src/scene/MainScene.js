@@ -101,6 +101,16 @@ tm.define("kumabang.MainScene", {
         return null;
     },
 
+    checkMap: function(x, y) {
+        var len = this.panels.length;
+        for (var i = 0; i< len; i++) {
+            var p = this.panels[i];
+            if (p.select || p.disable)continue;
+            if (p.mapX == x && p.mapY == y) return p;
+        }
+        return null;
+    },
+
     //タッチorクリック開始処理
     ontouchesstart: function(e) {
         this.touchID = e.ID;
@@ -129,10 +139,26 @@ tm.define("kumabang.MainScene", {
             p.x = sx-this.offsetX;
             p.y = sy-this.offsetY;
 
-            var mx = p.x-PN_OffX+PN_W_HALF;
-            var my = p.y-PN_OffY+PN_H_HALF;
-            p.mapX = clamp(~~(mx/PN_W), 0, MAP_W);
-            p.mapY = clamp(~~(my/PN_H), 0, MAP_H);
+            //選択中パネルの位置に他のパネルが合ったら場所を交換
+            var mx = clamp(~~((p.x-PN_OffX+PN_W_HALF)/PN_W), 0, MAP_W-1);
+            var my = clamp(~~((p.y-PN_OffY+PN_H_HALF)/PN_H), 0, MAP_H-1);
+            if (p.mapX != mx || p.mapY != my) {
+                var mp = this.checkMap(mx, my);
+                if (mp) {
+                    //行き先にパネルが無ければ移動
+                    var fp = this.checkMap(p.mapX, p.MapY);
+                    if (!fp) {
+                        mp.mapX = p.mapX;
+                        mp.mapY = p.mapY;
+                        mp.move();
+                    }
+                    p.mapX = mx;
+                    p.mapY = my;
+                } else {
+                    p.mapX = mx;
+                    p.mapY = my;
+                }
+            }
         }
         this.beforeX = sx;
         this.beforeY = sy;
