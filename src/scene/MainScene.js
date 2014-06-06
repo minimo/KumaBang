@@ -44,8 +44,22 @@ tm.define("kumabang.MainScene", {
         this.panelLayer = tm.app.Object2D().addChildTo(this);
         this.playerLayer = tm.app.Object2D().addChildTo(this);
         this.itemLayer = tm.app.Object2D().addChildTo(this);
-        
-        //パネル準備
+
+        //プレイヤー準備        
+        kumabang.createSpriteSheet();
+        this.player = kumabang.Player().addChildTo(this.playerLayer);
+    },
+    
+    //パネル初期化
+    initPanels: function() {
+        this.panelMap = [
+            [0,0,0,0,0],
+            [0,0,0,0,0],
+            [0,0,0,0,0],
+            [0,0,0,0,0],
+            [0,0,0,0,0],
+        ];
+
         this.panels = [];
         for (var x = 0; x < 5; x++){
             for (var y = 0; y < 5; y++){
@@ -57,17 +71,23 @@ tm.define("kumabang.MainScene", {
                 this.panels.push(p);
             }
         }
-        kumabang.createSpriteSheet();
-        this.player = kumabang.Player().addChildTo(this.playerLayer);
-    },
+    }
 
     update: function() {
         var kb = app.keyboard;
+        if (this.selectPanel) {
+            var sp = this.selectPanel;
+        }
         this.time++;
     },
 
+    //指定マップ座標のパネル取得    
+    getPanel: function(x, y) {
+        return null;
+    },
+
     //パネル判定
-    panelCheck: function(x, y) {
+    checkPanel: function(x, y) {
         var len = this.panels.length;
         for (var i = 0; i< len; i++) {
             var p = this.panels[i];
@@ -78,14 +98,14 @@ tm.define("kumabang.MainScene", {
         }
         return null;
     },
-    
+
     //タッチorクリック開始処理
     ontouchesstart: function(e) {
         this.touchID = e.ID;
-        var sx = this.startX = e.pointing.x;
-        var sy = this.startY = e.pointing.y;
+        var sx = this.startX = this.moveX = this.beforeX = e.pointing.x;
+        var sy = this.startY = this.moveY = this.beforeY = e.pointing.y;
 
-        var p = this.panelCheck(sx, sy);
+        var p = this.checkPanel(sx, sy);
         if (p) {
             p.select = true;
             p.tweener.scale(1.3, 200);
@@ -101,11 +121,11 @@ tm.define("kumabang.MainScene", {
         var sy = this.moveY = e.pointing.y;
         if (this.selectPanel) {
             var p = this.selectPanel;
-            p.x += e.pointing.deltaPosition.x;
-            p.y += e.pointing.deltaPosition.y;
+            p.x += sx-this.beforeX;
+            p.y += sy-this.beforeY;
         }
         this.beforeX = sx;
-        this.beforeY = sx;
+        this.beforeY = sy;
     },
 
     //タッチorクリック終了処理

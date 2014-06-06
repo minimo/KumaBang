@@ -33,6 +33,20 @@ var toDeg = 180/3.14159;    //ラジアンto弧度法変換
 var sec = function(s) { return ~~(fps * s);}    //秒からフレーム数へ変換
 var rand = function(min, max) { return mt.nextInt(min, max); };    //乱数発生
 
+//距離計算
+var distance = function(from, to) {
+    var x = from.x-to.x;
+    var y = from.y - to.y;
+    return Math.sqrt(x*x+y*y);
+}
+
+//距離計算（ルート無し版）
+var distanceSq = function(from, to) {
+    var x = from.x-to.x;
+    var y = from.y - to.y;
+    return x*x+y*y;
+}
+
 //数値の制限
 var clamp = function(x, min, max) {
     return (x<min)?min:((x>max)?max:x);

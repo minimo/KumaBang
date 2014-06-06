@@ -27,6 +27,12 @@ tm.define("kumabang.Panel", {
 
     update: function() {
     },
+    
+    moveTo: function(stageX, stageY) {
+        var dx = stageX*PN_W+PN_OffX;
+        var dy = stageY*PN_H+PN_OffY;
+        this.tweener.clear().to({x: dx, y: dy}, 200, "easeOutQuint");
+    },
 
     pick: function() {
         this.select = true;
@@ -39,7 +45,7 @@ tm.define("kumabang.Panel", {
     reverse: function() {
         var dx = this.stageX*PN_W+PN_OffX;
         var dy = this.stageY*PN_H+PN_OffY;
-        this.tweener.clear().to({x: dx, y: dy, scaleX: 1, scaleY: 1}, 500, "easeOutQuint");
+        this.tweener.clear().to({x: dx, y: dy, scaleX: 1, scaleY: 1}, 200, "easeOutQuint");
     },
 });
 
