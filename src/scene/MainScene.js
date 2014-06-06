@@ -34,7 +34,8 @@ tm.define("kumabang.MainScene", {
         this.superInit();
         this.background = "rgba(0, 0, 0, 0.0)";
         
-        this.bg = 
+        //バックグラウンド
+        this.bg = tm.display.Sprite("bg",3848, 1280).addChildTo(this);
 
         //マルチタッチ初期化
         this.touches = tm.input.TouchesEx(this);
