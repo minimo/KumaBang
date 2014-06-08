@@ -50,6 +50,7 @@ tm.define("kumabang.MainScene", {
         //プレイヤー準備        
         kumabang.createSpriteSheet();
         this.player = kumabang.Player().addChildTo(this.playerLayer);
+        this.player.setPosition(PN_OffX, PN_OffY);
         
         this.initPanels();
     },
