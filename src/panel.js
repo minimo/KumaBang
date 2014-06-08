@@ -13,7 +13,11 @@ tm.define("kumabang.Panel", {
     
     //選択＆移動不可フラグ
     disable: false,
-    
+
+    //状態フラグ
+    onPlayer: false,
+    onItem: false,
+
     //マップ上パネル位置
     mapX: 0,
     mapY: 0,
@@ -43,6 +47,11 @@ tm.define("kumabang.Panel", {
     },
 
     update: function() {
+        if (this.onPlayer || this.onItem) {
+            this.disable = true;
+        } else {
+            this.disable = false;
+        }
     },
     
     move: function(x, y) {

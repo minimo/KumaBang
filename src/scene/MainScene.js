@@ -85,10 +85,16 @@ tm.define("kumabang.MainScene", {
 
     //指定マップ座標のパネル取得    
     getPanel: function(x, y) {
+        var len = this.panels.length;
+        for (var i = 0; i< len; i++) {
+            var p = this.panels[i];
+            if (p.select)continue;
+            if (p.mapX == x && p.mapY == y) return p;
+        }
         return null;
     },
 
-    //パネル判定
+    //スクリーン座標上のパネル判定
     checkPanel: function(x, y) {
         var len = this.panels.length;
         for (var i = 0; i< len; i++) {
@@ -101,11 +107,12 @@ tm.define("kumabang.MainScene", {
         return null;
     },
 
+    //マップ座標上のパネル判定
     checkMap: function(x, y) {
         var len = this.panels.length;
         for (var i = 0; i< len; i++) {
             var p = this.panels[i];
-            if (p.select || p.disable)continue;
+            if (p.select)continue;
             if (p.mapX == x && p.mapY == y) return p;
         }
         return null;
@@ -113,6 +120,7 @@ tm.define("kumabang.MainScene", {
 
     //タッチorクリック開始処理
     ontouchesstart: function(e) {
+        if (this.touchID > 0)return;
         this.touchID = e.ID;
         var sx = this.startX = this.moveX = this.beforeX = e.pointing.x;
         var sy = this.startY = this.moveY = this.beforeY = e.pointing.y;
@@ -136,15 +144,15 @@ tm.define("kumabang.MainScene", {
         var sy = this.moveY = e.pointing.y;
         if (this.selectPanel) {
             var p = this.selectPanel;
-            p.x = sx-this.offsetX;
-            p.y = sy-this.offsetY;
+            p.x = clamp(p.x+sx-this.beforeX, PN_OffX, PN_OffX+PN_W*(MAP_W-1));
+            p.y = clamp(p.y+sy-this.beforeY, PN_OffY, PN_OffY+PN_H*(MAP_H-1));
 
             //選択中パネルの位置に他のパネルが合ったら場所を交換
             var mx = clamp(~~((p.x-PN_OffX+PN_W_HALF)/PN_W), 0, MAP_W-1);
             var my = clamp(~~((p.y-PN_OffY+PN_H_HALF)/PN_H), 0, MAP_H-1);
             if (p.mapX != mx || p.mapY != my) {
                 var mp = this.checkMap(mx, my);
-                if (mp) {
+                if (mp && !mp.disable) {
                     //行き先にパネルが無ければ移動
                     var fp = this.checkMap(p.mapX, p.MapY);
                     if (!fp) {
@@ -154,7 +162,8 @@ tm.define("kumabang.MainScene", {
                     }
                     p.mapX = mx;
                     p.mapY = my;
-                } else {
+                }
+                if (mp == null) {
                     p.mapX = mx;
                     p.mapY = my;
                 }
@@ -167,6 +176,7 @@ tm.define("kumabang.MainScene", {
     //タッチorクリック終了処理
     ontouchesend: function(e) {
         if (this.touchID != e.ID) return;
+        this.touchID = -1;
         if (this.selectPanel) {
             var p = this.selectPanel;
             p.select = false;
