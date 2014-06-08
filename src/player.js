@@ -12,6 +12,7 @@ tm.define("kumabang.Player", {
     init: function() {
         //親クラスの初期化
         this.superInit(player, 32, 32);
+        this.origin.y = 0.9;
     },
     update: function() {
         //移動してたらアニメーションする        
