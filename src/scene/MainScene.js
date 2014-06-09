@@ -13,6 +13,13 @@ tm.define("kumabang.MainScene", {
     touches: null,
     touchID: -1,
     
+    //現在ステージデータ
+    stageNumber: 1,
+    stageData: null,
+    
+    //状態フラグ
+    startWait: true,
+
     //パネル配列
     panels: null,
     
@@ -51,29 +58,24 @@ tm.define("kumabang.MainScene", {
         kumabang.createSpriteSheet();
         this.player = kumabang.Player().addChildTo(this.playerLayer);
         this.player.setPosition(PN_OffX, PN_OffY);
-        
+
+        //パネル初期化        
         this.initPanels();
     },
     
     //パネル初期化
     initPanels: function() {
-        this.panelMap = [
-            [0,0,0,0,0],
-            [0,0,0,0,0],
-            [0,0,0,0,0],
-            [0,0,0,0,0],
-            [0,0,0,0,0],
-        ];
+        this.stageData = kumabang.stageData[this.stageNumber-1];
 
         this.panels = [];
-        for (var x = 0; x < MAP_W; x++){
-            for (var y = 0; y < MAP_H; y++){
+        for (var y = 0; y < MAP_H; y++){
+            for (var x = 0; x < MAP_W; x++){
                 var p = kumabang.Panel().addChildTo(this.panelLayer);
                 p.x = x*PN_W+PN_OffX;
                 p.y = y*PN_H+PN_OffY;
                 p.mapX = x;
                 p.mapY = y;
-                p.pattern = rand(1,7);
+                p.pattern = this.stageData.map[y][x];
                 this.panels.push(p);
             }
         }
