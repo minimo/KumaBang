@@ -4,10 +4,20 @@
  *  @auther minimo  
  *  This Program is MIT license.
  */
+//アイテムデータ意味
+//1:りんご
+//2:スター
+//3:時計
+//4:ライフ
+//5:爆弾
+//6:空白（シャッフル不可パネル）
+//7:空白（移動不可パネル）
+//8:スタート位置
+//9:ゴール位置
 
 kumabang.stageData = [];
 
-//ステージ制御
+//ステージ１
 tm.define("kumabang.Stage1", {
 	number: 0,              //ステージ番号
 	needConditon: false,    //クリア条件有りフラグ

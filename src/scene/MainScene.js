@@ -18,7 +18,8 @@ tm.define("kumabang.MainScene", {
     stageData: null,
     
     //状態フラグ
-    startWait: true,
+    ready: false,   //準備ＯＫ
+    start: false,   //ゲームスタート
 
     //パネル配列
     panels: null,
@@ -44,7 +45,7 @@ tm.define("kumabang.MainScene", {
         this.background = "rgba(0, 0, 0, 0.0)";
         
         //バックグラウンド
-        this.bg = tm.display.Sprite("bg",3848, 1280).addChildTo(this);
+        this.bg = tm.display.Sprite("bg",320, 480).addChildTo(this);
 
         //マルチタッチ初期化
         this.touches = tm.input.TouchesEx(this);
@@ -59,12 +60,26 @@ tm.define("kumabang.MainScene", {
         this.player = kumabang.Player().addChildTo(this.playerLayer);
         this.player.setPosition(PN_OffX, PN_OffY);
 
-        //パネル初期化        
-        this.initPanels();
+        //状態フラグ初期化
+        this.ready = true;
+        this.start = false;
     },
     
-    //パネル初期化
-    initPanels: function() {
+    update: function() {
+        if (this.ready) {
+            //パネル初期化        
+            this.initStage();
+            this.ready = false;
+            this.start = true;
+        }
+        if (!this.start) return;
+
+        var kb = app.keyboard;
+        this.time++;
+    },
+
+    //ステージ初期化
+    initStage: function() {
         this.stageData = kumabang.stageData[this.stageNumber-1];
 
         this.panels = [];
@@ -76,14 +91,11 @@ tm.define("kumabang.MainScene", {
                 p.mapX = x;
                 p.mapY = y;
                 p.pattern = this.stageData.map[y][x];
+                var item = this.stageData.item[y][x];
+                if (item != 0 && item != 6)p.onItem = true;
                 this.panels.push(p);
             }
         }
-    },
-
-    update: function() {
-        var kb = app.keyboard;
-        this.time++;
     },
 
     //指定マップ座標のパネル取得    

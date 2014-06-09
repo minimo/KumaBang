@@ -17,7 +17,7 @@ tm.define("kumabang.Panel", {
     //状態フラグ
     onPlayer: false,
     onItem: false,
-
+    
     //マップ上パネル位置
     mapX: 0,
     mapY: 0,
