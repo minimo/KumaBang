@@ -59,6 +59,9 @@ tm.define("kumabang.MainScene", {
         kumabang.createSpriteSheet();
         this.player = kumabang.Player().addChildTo(this.playerLayer);
         this.player.setPosition(PN_OffX, PN_OffY);
+        
+        this.egg = kumabang.Egg().addChildTo(this.playerLayer)
+        this.egg.setPosition(PN_OffX, PN_OffY);
 
         //状態フラグ初期化
         this.ready = true;
