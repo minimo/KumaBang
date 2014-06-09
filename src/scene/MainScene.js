@@ -12,11 +12,21 @@ tm.define("kumabang.MainScene", {
     //マルチタッチ補助クラス
     touches: null,
     touchID: -1,
+
+    //エンドレスモード     
+    endless: false,   
     
     //現在ステージデータ
     stageNumber: 1,
     stageData: null,
-    
+
+    //スタート＆ゴールパネル座標
+/*
+    startX: 0,
+    startY: 0,
+    goalX: 0,
+    goalY: 0,
+*/
     //状態フラグ
     ready: false,   //準備ＯＫ
     start: false,   //ゲームスタート
@@ -28,8 +38,6 @@ tm.define("kumabang.MainScene", {
     selectPanel: null,
     
     //タッチ情報
-    startX: 0,
-    startY: 0,
     moveX: 0,
     moveY: 0,
     beforeX: 0,
@@ -59,8 +67,9 @@ tm.define("kumabang.MainScene", {
         kumabang.createSpriteSheet();
         this.player = kumabang.Player().addChildTo(this.playerLayer);
         this.player.setPosition(PN_OffX, PN_OffY);
+        this.player.visible = false;
         
-        this.egg = kumabang.Egg().addChildTo(this.playerLayer)
+        this.egg = kumabang.Egg();
         this.egg.setPosition(PN_OffX, PN_OffY);
 
         //状態フラグ初期化
@@ -93,6 +102,8 @@ tm.define("kumabang.MainScene", {
             }
         }
 
+        //プレイヤー初期位置
+
         //パネル準備
         this.panels = [];
         for (var y = 0; y < MAP_H; y++){
@@ -105,23 +116,43 @@ tm.define("kumabang.MainScene", {
                 p.pattern = this.stageData.map[y][x];
                 var item = this.stageData.item[y][x];
                 if (item != 0 && item != 6)p.onItem = true;
+                if (item == 8) {
+                    this.startX = x;
+                    this.startY = y;
+                }
+                if (item == 9) {
+                    this.goalX = x;
+                    this.goalY = y;
+                }
+
                 this.panels.push(p);
             }
         }
         
         //スタートメッセージ
-        var lb = tm.display.OutlineLabel("READY?", 30).addChildTo(this);
+        var lb = tm.display.OutlineLabel("READY", 30).addChildTo(this);
         lb.setPosition( SC_W/2, -SC_H);
         lb.fontFamily = "'Orbitron'";
         lb.align     = "center";
         lb.baseline  = "middle";
         lb.fontSize = 25;
         lb.outlineWidth = 2;
-        lb.tweener.clear().wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 1000, "easeOutQuint").fadeOut(300).call(function(){lb.text = "START!!";});
+        lb.tweener.clear().wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 500, "easeOutQuint").fadeOut(300).call(function(){lb.text = "START!!";});
         lb.tweener.to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1);
-        lb.tweener.wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 1000, "easeOutQuint").fadeOut(300).call(function(){lb.remove();});
+        lb.tweener.wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 500, "easeOutQuint").fadeOut(300).call(function(){lb.remove();});
 
         //プレイヤー準備
+        var sx = PN_OffX+this.startX*PN_W;
+        var sy = PN_OffY+this.startY*PN_H;
+        this.player.setPosition(sx, sy);
+        this.player.visible = false;
+        this.egg.addChildTo(this.playerLayer);
+        this.egg.setPosition(sx, sy);
+        this.egg.gotoAndPlay("enter");
+
+        var gx = PN_OffX+this.goalX*PN_W;
+        var gy = PN_OffY+this.goalY*PN_H;
+
     },
 
     //指定マップ座標のパネル取得    
@@ -163,8 +194,8 @@ tm.define("kumabang.MainScene", {
     ontouchesstart: function(e) {
         if (this.touchID > 0)return;
         this.touchID = e.ID;
-        var sx = this.startX = this.moveX = this.beforeX = e.pointing.x;
-        var sy = this.startY = this.moveY = this.beforeY = e.pointing.y;
+        var sx = this.moveX = this.beforeX = e.pointing.x;
+        var sy = this.moveY = this.beforeY = e.pointing.y;
 
         var p = this.checkPanel(sx, sy);
         if (p) {

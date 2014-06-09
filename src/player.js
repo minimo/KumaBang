@@ -42,12 +42,18 @@ tm.define("kumabang.Player", {
 tm.define("kumabang.Egg", {
     superClass: "tm.display.AnimationSprite",
 
+    finished: false,
+
     init: function() {
         //親クラスの初期化
         this.superInit(egg, 32, 32);
         this.origin.y = 0.9;
-        this.nowAnimation = "enter";
-        this.gotoAndPlay("enter");
     },
+    update: function() {
+        if (this.paused) {
+            this.remove();
+            this.finished = true;
+        }
+    }
 });
 
