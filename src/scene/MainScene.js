@@ -80,8 +80,17 @@ tm.define("kumabang.MainScene", {
 
     //ステージ初期化
     initStage: function() {
+        //ステージデータコピー
         this.stageData = kumabang.stageData[this.stageNumber-1];
 
+        //パネル全消去
+        if (this.panels) {
+            for (i in this.panels) {
+                this.panels[i].remove();
+            }
+        }
+
+        //パネル準備
         this.panels = [];
         for (var y = 0; y < MAP_H; y++){
             for (var x = 0; x < MAP_W; x++){
@@ -96,6 +105,20 @@ tm.define("kumabang.MainScene", {
                 this.panels.push(p);
             }
         }
+        
+        //スタートメッセージ
+        var lb = tm.display.OutlineLabel("READY?", 30).addChildTo(this);
+        lb.setPosition( SC_W/2, -SC_H);
+        lb.fontFamily = "'Orbitron'";
+        lb.align     = "center";
+        lb.baseline  = "middle";
+        lb.fontSize = 25;
+        lb.outlineWidth = 2;
+        lb.tweener.clear().wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 1000, "easeOutQuint").fadeOut(300).call(function(){lb.text = "START!!";});
+        lb.tweener.to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1);
+        lb.tweener.wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 1000, "easeOutQuint").fadeOut(300).call(function(){lb.remove();});
+
+        //プレイヤー準備
     },
 
     //指定マップ座標のパネル取得    
