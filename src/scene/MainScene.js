@@ -159,8 +159,8 @@ tm.define("kumabang.MainScene", {
         var sy = this.moveY = e.pointing.y;
         if (this.selectPanel) {
             var p = this.selectPanel;
-            p.x = clamp(p.x+sx-this.beforeX, PN_OffX, PN_OffX+PN_W*(MAP_W-1));
-            p.y = clamp(p.y+sy-this.beforeY, PN_OffY, PN_OffY+PN_H*(MAP_H-1));
+            p.x = clamp(sx-this.offsetX, PN_OffX, PN_OffX+PN_W*(MAP_W-1));
+            p.y = clamp(sy-this.offsetY, PN_OffY, PN_OffY+PN_H*(MAP_H-1));
 
             //選択中パネルの位置に他のパネルが合ったら場所を交換
             var mx = clamp(~~((p.x-PN_OffX+PN_W_HALF)/PN_W), 0, MAP_W-1);
