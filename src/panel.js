@@ -13,6 +13,7 @@ tm.define("kumabang.Panel", {
     
     //選択＆移動不可フラグ
     disable: false,
+    shuffle: true,  //シャッフル可能フラグ
 
     //状態フラグ
     onPlayer: false,
@@ -54,11 +55,10 @@ tm.define("kumabang.Panel", {
         }
     },
     
+    //指定マップ座標へ移動
     move: function(x, y) {
-        this.moveTo(this.mapX, this.mapY);
-    },
-
-    moveTo: function(x, y) {
+        this.mapX = x;
+        this.mapY = y;
         var dx = x*PN_W+PN_OffX;
         var dy = y*PN_H+PN_OffY;
         this.tweener.clear().to({x: dx, y: dy}, 100, "easeOutQuint");

@@ -115,6 +115,7 @@ tm.define("kumabang.MainScene", {
                 p.mapY = y;
                 p.pattern = this.stageData.map[y][x];
                 var item = this.stageData.item[y][x];
+                if (item != 0) p.shuffle = false;
                 if (item != 0 && item != 6)p.onItem = true;
                 if (item == 8) {
                     this.startX = x;
@@ -128,19 +129,18 @@ tm.define("kumabang.MainScene", {
                 this.panels.push(p);
             }
         }
+        //パネルシャッフル
+        for (var i = 0; i < rand(10, 20); i++){
+            var a = rand(0, this.panels.length-1);
+            var b = rand(0, this.panels.length-1);
+            var p1 = this.panels[a];
+            var p2 = this.panels[b];
+            if (a == b || !p1.shuffle || !p2.shuffle) {i--; continue;}
+            var tx = p1.mapX, ty = p1.mapY;
+            p1.move(p2.mapX, p2.mapY);
+            p2.move(tx, ty);
+        }
         
-        //スタートメッセージ
-        var lb = tm.display.OutlineLabel("READY", 30).addChildTo(this);
-        lb.setPosition( SC_W/2, -SC_H);
-        lb.fontFamily = "'Orbitron'";
-        lb.align     = "center";
-        lb.baseline  = "middle";
-        lb.fontSize = 25;
-        lb.outlineWidth = 2;
-        lb.tweener.clear().wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 500, "easeOutQuint").fadeOut(300).call(function(){lb.text = "START!!";});
-        lb.tweener.to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1);
-        lb.tweener.wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 500, "easeOutQuint").fadeOut(300).call(function(){lb.remove();});
-
         //プレイヤー準備
         var sx = PN_OffX+this.startX*PN_W;
         var sy = PN_OffY+this.startY*PN_H;
@@ -153,6 +153,17 @@ tm.define("kumabang.MainScene", {
         var gx = PN_OffX+this.goalX*PN_W;
         var gy = PN_OffY+this.goalY*PN_H;
 
+        //スタートメッセージ
+        var lb = tm.display.OutlineLabel("READY", 30).addChildTo(this);
+        lb.setPosition( SC_W/2, -SC_H);
+        lb.fontFamily = "'Orbitron'";
+        lb.align     = "center";
+        lb.baseline  = "middle";
+        lb.fontSize = 25;
+        lb.outlineWidth = 2;
+        lb.tweener.clear().wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 500, "easeOutQuint").fadeOut(300).call(function(){lb.text = "START!!";});
+        lb.tweener.to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1);
+        lb.tweener.wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 500, "easeOutQuint").fadeOut(300).call(function(){lb.remove();});
     },
 
     //指定マップ座標のパネル取得    
@@ -228,9 +239,9 @@ tm.define("kumabang.MainScene", {
                     //行き先にパネルが無ければ移動
                     var fp = this.checkMap(p.mapX, p.MapY);
                     if (!fp) {
-                        mp.mapX = p.mapX;
-                        mp.mapY = p.mapY;
-                        mp.move();
+//                        mp.mapX = p.mapX;
+//                        mp.mapY = p.mapY;
+                        mp.move(p.mapX, p.mapY);
                     }
                     p.mapX = mx;
                     p.mapY = my;
