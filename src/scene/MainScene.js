@@ -155,15 +155,22 @@ tm.define("kumabang.MainScene", {
 
         //スタートメッセージ
         var lb = tm.display.OutlineLabel("READY", 30).addChildTo(this);
-        lb.setPosition( SC_W/2, -SC_H);
+        lb.setPosition(SC_W/2, SC_H/2);
+        lb.alpha = 0;
         lb.fontFamily = "'Orbitron'";
         lb.align     = "center";
         lb.baseline  = "middle";
         lb.fontSize = 25;
         lb.outlineWidth = 2;
+        lb.tweener.clear().fadeIn(100).wait(1000).fadeOut(100).call(function(){lb.text = "START!!";});
+        lb.tweener.to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1);
+        lb.tweener.wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 500, "easeOutQuint");
+        lb.tweener.wait(500).to({x: SC_W/2, y: SC_H*1.5, scaleX: 1, scaleY: 1}, 1000, "easeOutQuint").call(function(){lb.remove();});
+/*
         lb.tweener.clear().wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 500, "easeOutQuint").fadeOut(300).call(function(){lb.text = "START!!";});
         lb.tweener.to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1);
         lb.tweener.wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 500, "easeOutQuint").fadeOut(300).call(function(){lb.remove();});
+*/
     },
 
     //指定マップ座標のパネル取得    
@@ -211,10 +218,11 @@ tm.define("kumabang.MainScene", {
         var p = this.checkPanel(sx, sy);
         if (p) {
             p.select = true;
-            p.tweener.clear().scale(0.9, 200);
-            p.remove().addChildTo(this.panelLayer);
+            p.tweener.clear().scale(0.9, 100);
+            p.remove().addChildTo(this.panelLayer); //一番手前に持ってくる
             this.selectPanel = p;
             
+            //パネルの座標とタッチ座標のオフセットを計算
             this.offsetX = sx-p.x;
             this.offsetY = sy-p.y;
         }
@@ -227,6 +235,7 @@ tm.define("kumabang.MainScene", {
         var sy = this.moveY = e.pointing.y;
         if (this.selectPanel) {
             var p = this.selectPanel;
+            //パネルが領域外に行かない様に制限
             p.x = clamp(sx-this.offsetX, PN_OffX, PN_OffX+PN_W*(MAP_W-1));
             p.y = clamp(sy-this.offsetY, PN_OffY, PN_OffY+PN_H*(MAP_H-1));
 
@@ -238,11 +247,7 @@ tm.define("kumabang.MainScene", {
                 if (mp && !mp.disable) {
                     //行き先にパネルが無ければ移動
                     var fp = this.checkMap(p.mapX, p.MapY);
-                    if (!fp) {
-//                        mp.mapX = p.mapX;
-//                        mp.mapY = p.mapY;
-                        mp.move(p.mapX, p.mapY);
-                    }
+                    if (!fp) mp.move(p.mapX, p.mapY);
                     p.mapX = mx;
                     p.mapY = my;
                 }
