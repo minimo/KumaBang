@@ -59,6 +59,7 @@ tm.define("kumabang.MainScene", {
         this.touches = tm.input.TouchesEx(this);
         
         //レイヤー準備
+        this.lowerLayer = tm.app.Object2D().addChildTo(this);
         this.panelLayer = tm.app.Object2D().addChildTo(this);
         this.playerLayer = tm.app.Object2D().addChildTo(this);
         this.itemLayer = tm.app.Object2D().addChildTo(this);

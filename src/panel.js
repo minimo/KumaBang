@@ -64,10 +64,16 @@ tm.define("kumabang.Panel", {
         this.tweener.clear().to({x: dx, y: dy}, 100, "easeOutQuint");
     },
 
+    //パネルを定位置へ戻す
     reverse: function() {
         var dx = this.mapX*PN_W+PN_OffX;
         var dy = this.mapY*PN_H+PN_OffY;
         this.tweener.clear().to({x: dx, y: dy, scaleX: 1, scaleY: 1}, 100, "easeOutQuint");
+    },
+
+    //パネルを落とす    
+    drop: function() {
+        this.tweener.clear().to({x: this.x, y: this.y+50, scaleX: 0.5, scaleY: 0.5, alpha: 0}, 100, "easeOutQuint");
     },
 });
 
