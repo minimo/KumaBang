@@ -71,3 +71,72 @@ tm.define("kumabang.Egg", {
     }
 });
 
+//スプライトシート作成
+kumabang.createSpriteSheet = function() {
+    egg = tm.asset.SpriteSheet({
+        image: "enter",
+        frame: {
+            width: 32,
+            height: 32,
+            count: 15,
+        },
+        animations: {
+            "stop": {
+                frames:[14],
+                next: "stop",
+                frequency: 1,
+            },
+            "enter": {
+                frames:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+                frequency: 3,
+            },
+        },
+    });
+
+    player = tm.asset.SpriteSheet({
+        image: "player",
+        frame: {
+            width: 32,
+            height: 32,
+            count: 18,
+        },
+        animations: {
+            "stop": {
+                frames:[0],
+                next: "stop",
+                frequency: 1,
+            },
+            "startup": {
+                frames:[1,2,3,1,2,3,1,2,3,1,2,3,1,2,3],
+                next: "stop",
+                frequency: 5,
+            },
+            "moveLR": {
+                frames:[1,2,3],
+                next: "move",
+                frequency: 5,
+            },
+            "moveL": {
+                frames:[12,13,14],
+                next: "move",
+                frequency: 5,
+            },
+            "moveR": {
+                frames:[15,16,17],
+                next: "move",
+                frequency: 5,
+            },
+            "moveD": {
+                frames:[6,7,8],
+                next: "move",
+                frequency: 5,
+            },
+            "moveU": {
+                frames:[9,10,11],
+                next: "move",
+                frequency: 5,
+            },
+        },
+    });
+    
+};
