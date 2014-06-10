@@ -21,12 +21,11 @@ tm.define("kumabang.MainScene", {
     stageData: null,
 
     //スタート＆ゴールパネル座標
-/*
     startX: 0,
     startY: 0,
     goalX: 0,
     goalY: 0,
-*/
+
     //状態フラグ
     ready: false,   //準備ＯＫ
     start: false,   //ゲームスタート
@@ -105,9 +104,7 @@ tm.define("kumabang.MainScene", {
             }
         }
 
-        //プレイヤー初期位置
-
-        //パネル準備
+        //マップ構築
         this.panels = [];
         for (var y = 0; y < MAP_H; y++){
             for (var x = 0; x < MAP_W; x++){
@@ -120,10 +117,12 @@ tm.define("kumabang.MainScene", {
                 var item = this.stageData.item[y][x];
                 if (item != 0) p.shuffle = false;
                 if (item != 0 && item != 6)p.onItem = true;
+                //スタート位置
                 if (item == 8) {
                     this.startX = x;
                     this.startY = y;
                 }
+                //ゴール位置
                 if (item == 9) {
                     this.goalX = x;
                     this.goalY = y;
@@ -174,11 +173,6 @@ tm.define("kumabang.MainScene", {
         lb.tweener.to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1);
         lb.tweener.wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 500, "easeOutQuint");
         lb.tweener.wait(500).to({x: SC_W/2, y: SC_H*1.5, scaleX: 1, scaleY: 1}, 1000, "easeOutQuint").call(function(){lb.remove();});
-/*
-        lb.tweener.clear().wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 500, "easeOutQuint").fadeOut(300).call(function(){lb.text = "START!!";});
-        lb.tweener.to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1);
-        lb.tweener.wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 500, "easeOutQuint").fadeOut(300).call(function(){lb.remove();});
-*/
     },
 
     //指定マップ座標のパネル取得    
