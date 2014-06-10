@@ -68,8 +68,10 @@ tm.define("kumabang.MainScene", {
         this.player = kumabang.Player().addChildTo(this.playerLayer);
         this.player.setPosition(PN_OffX, PN_OffY);
         this.player.visible = false;
-        
+
+        //ステージ開始時演出用
         this.egg = kumabang.Egg();
+        this.egg.player = this.player;
         this.egg.setPosition(PN_OffX, PN_OffY);
 
         //状態フラグ初期化
@@ -130,7 +132,7 @@ tm.define("kumabang.MainScene", {
             }
         }
         //パネルシャッフル
-        for (var i = 0; i < rand(10, 20); i++){
+        for (var i = 0; i < rand(15, 20); i++){
             var a = rand(0, this.panels.length-1);
             var b = rand(0, this.panels.length-1);
             var p1 = this.panels[a];
@@ -145,13 +147,18 @@ tm.define("kumabang.MainScene", {
         var sx = PN_OffX+this.startX*PN_W;
         var sy = PN_OffY+this.startY*PN_H;
         this.player.setPosition(sx, sy);
+        this.player.scaleX = -1;
         this.player.visible = false;
         this.egg.addChildTo(this.playerLayer);
+        this.egg.scaleX = -1;
         this.egg.setPosition(sx, sy);
         this.egg.gotoAndPlay("enter");
 
-        var gx = PN_OffX+this.goalX*PN_W;
-        var gy = PN_OffY+this.goalY*PN_H;
+        //ゴール準備
+        if (!this.endless) {
+            var gx = PN_OffX+this.goalX*PN_W;
+            var gy = PN_OffY+this.goalY*PN_H;
+        }
 
         //スタートメッセージ
         var lb = tm.display.OutlineLabel("READY", 30).addChildTo(this);

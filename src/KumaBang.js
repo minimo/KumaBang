@@ -78,6 +78,11 @@ kumabang.createSpriteSheet = function() {
                 next: "stop",
                 frequency: 1,
             },
+            "startup": {
+                frames:[1,2,3,1,2,3,1,2,3],
+                next: "stop",
+                frequency: 5,
+            },
             "move": {
                 frames:[1,2,3],
                 next: "move",

@@ -36,6 +36,17 @@ tm.define("kumabang.Player", {
         this.by = this.y;
         this.time++;
     },
+    
+    //特殊アクション
+    action: function(name) {
+        this.nowAnimation = name;
+        this.gotoAndPlay(name);
+        switch (name) {
+            case "startup":
+                this.tweener.clear().moveBy(0,-20,100).moveBy(0,20,100);
+                break;
+        }
+    },
 });
 
 //開始時プレイヤーキャラクター
@@ -53,6 +64,9 @@ tm.define("kumabang.Egg", {
         if (this.paused) {
             this.remove();
             this.finished = true;
+
+            this.player.visible = true;
+            this.player.action("startup");
         }
     }
 });
