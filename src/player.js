@@ -43,7 +43,7 @@ tm.define("kumabang.Player", {
         this.gotoAndPlay(name);
         switch (name) {
             case "startup":
-                this.tweener.clear().moveBy(0,-20,100).moveBy(0,20,100);
+                this.tweener.clear().moveBy(0,-20,300,"easeOutQuint").moveBy(0,20,300,"easeOutQuint");
                 break;
         }
     },
