@@ -43,7 +43,7 @@ tm.define("kumabang.CanvasApp", {
     },
 });
 
-//繧ｹ繝励Λ繧､繝医す繝ｼ繝亥ｮ夂ｾｩ
+//スプライトシート
 kumabang.createSpriteSheet = function() {
     egg = tm.asset.SpriteSheet({
         image: "enter",
