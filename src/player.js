@@ -12,6 +12,9 @@ tm.define("kumabang.Player", {
     //プレイヤーの現在マップ座標    
     mapX: -1,
     mapY: -1,
+    
+    //乗っているパネル
+    onPanel: null,
 
     init: function() {
         //親クラスの初期化
