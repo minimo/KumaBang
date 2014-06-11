@@ -27,8 +27,8 @@ PN_W_HALF = PN_W/2;
 PN_H_HALF = PN_H/2;
 
 //パネル位置オフセット    
-PN_OffX = 10+PN_W/2;
-PN_OffY = 60+PN_H/2;
+PN_OFFX = 10+PN_W/2;
+PN_OFFY = 60+PN_H/2;
 
 
 //フレームレート

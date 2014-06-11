@@ -59,15 +59,15 @@ tm.define("kumabang.Panel", {
     move: function(x, y) {
         this.mapX = x;
         this.mapY = y;
-        var dx = x*PN_W+PN_OffX;
-        var dy = y*PN_H+PN_OffY;
+        var dx = x*PN_W+PN_OFFX;
+        var dy = y*PN_H+PN_OFFY;
         this.tweener.clear().to({x: dx, y: dy}, 100, "easeOutQuint");
     },
 
     //パネルを定位置へ戻す
     reverse: function() {
-        var dx = this.mapX*PN_W+PN_OffX;
-        var dy = this.mapY*PN_H+PN_OffY;
+        var dx = this.mapX*PN_W+PN_OFFX;
+        var dy = this.mapY*PN_H+PN_OFFY;
         this.tweener.clear().to({x: dx, y: dy, scaleX: 1, scaleY: 1}, 100, "easeOutQuint");
     },
 

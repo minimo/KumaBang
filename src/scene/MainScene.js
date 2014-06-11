@@ -66,13 +66,13 @@ tm.define("kumabang.MainScene", {
         //プレイヤー準備        
         kumabang.createSpriteSheet();
         this.player = kumabang.Player().addChildTo(this.playerLayer);
-        this.player.setPosition(PN_OffX, PN_OffY);
+        this.player.setPosition(PN_OFFX, PN_OFFY);
         this.player.visible = false;
 
         //ステージ開始時演出用
         this.egg = kumabang.Egg();
         this.egg.player = this.player;
-        this.egg.setPosition(PN_OffX, PN_OffY);
+        this.egg.setPosition(PN_OFFX, PN_OFFY);
 
         //状態フラグ初期化
         this.ready = true;
@@ -87,6 +87,8 @@ tm.define("kumabang.MainScene", {
             this.start = true;
         }
         if (!this.start) return;
+        var player = this.player;
+        var px = (player.x-SC_OffX/
 
         var kb = app.keyboard;
         this.time++;
@@ -109,8 +111,8 @@ tm.define("kumabang.MainScene", {
         for (var y = 0; y < MAP_H; y++){
             for (var x = 0; x < MAP_W; x++){
                 var p = kumabang.Panel().addChildTo(this.panelLayer);
-                p.x = x*PN_W+PN_OffX;
-                p.y = y*PN_H+PN_OffY;
+                p.x = x*PN_W+PN_OFFX;
+                p.y = y*PN_H+PN_OFFY;
                 p.mapX = x;
                 p.mapY = y;
                 p.pattern = this.stageData.map[y][x];
@@ -144,8 +146,8 @@ tm.define("kumabang.MainScene", {
         }
         
         //プレイヤー準備
-        var sx = PN_OffX+this.startX*PN_W;
-        var sy = PN_OffY+this.startY*PN_H;
+        var sx = PN_OFFX+this.startX*PN_W;
+        var sy = PN_OFFY+this.startY*PN_H;
         this.player.setPosition(sx, sy);
         this.player.scaleX = -1;
         this.player.visible = false;
@@ -156,8 +158,8 @@ tm.define("kumabang.MainScene", {
 
         //ゴール準備
         if (!this.endless) {
-            var gx = PN_OffX+this.goalX*PN_W;
-            var gy = PN_OffY+this.goalY*PN_H;
+            var gx = PN_OFFX+this.goalX*PN_W;
+            var gy = PN_OFFY+this.goalY*PN_H;
         }
 
         //スタートメッセージ
@@ -240,12 +242,12 @@ tm.define("kumabang.MainScene", {
         if (this.selectPanel) {
             var p = this.selectPanel;
             //パネルが領域外に行かない様に制限
-            p.x = clamp(sx-this.offsetX, PN_OffX, PN_OffX+PN_W*(MAP_W-1));
-            p.y = clamp(sy-this.offsetY, PN_OffY, PN_OffY+PN_H*(MAP_H-1));
+            p.x = clamp(sx-this.offsetX, PN_OFFX, PN_OFFX+PN_W*(MAP_W-1));
+            p.y = clamp(sy-this.offsetY, PN_OFFY, PN_OFFY+PN_H*(MAP_H-1));
 
             //選択中パネルの位置に他のパネルが合ったら場所を交換
-            var mx = clamp(~~((p.x-PN_OffX+PN_W_HALF)/PN_W), 0, MAP_W-1);
-            var my = clamp(~~((p.y-PN_OffY+PN_H_HALF)/PN_H), 0, MAP_H-1);
+            var mx = clamp(~~((p.x-PN_OFFX+PN_W_HALF)/PN_W), 0, MAP_W-1);
+            var my = clamp(~~((p.y-PN_OFFY+PN_H_HALF)/PN_H), 0, MAP_H-1);
             if (p.mapX != mx || p.mapY != my) {
                 var mp = this.checkMap(mx, my);
                 if (mp && !mp.disable) {
