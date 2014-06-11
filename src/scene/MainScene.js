@@ -30,6 +30,9 @@ tm.define("kumabang.MainScene", {
     //状態フラグ
     ready: false,   //準備ＯＫ
     start: false,   //ゲームスタート
+    
+    //１つのパネルを通る時間
+    speed: 1500,
 
     //パネル配列
     panels: null,
@@ -88,18 +91,8 @@ tm.define("kumabang.MainScene", {
             this.start = false;
         }
         if (!this.start) return;
-        var player = this.player;
-        var px = ~~((player.x-PN_OFFX+PN_W/2)/PN_W), py = ~~((player.y-PN_OFFY+PN_H/2)/PN_H);
-        if (player.mapX != px || player.mapY != py) {
-            var p = this.checkMapPanel(px, py);
-            if (p) {
-                player.tweener.clear().moveBy(60, 0, 2000);
-                player.mapX = px;
-                player.mapY = py;
-            } else {
-                //ミス！！
-            }
-        }
+
+        this.tickPlayer();
 
         var kb = app.keyboard;
         this.time++;
@@ -214,6 +207,96 @@ tm.define("kumabang.MainScene", {
             if (p.mapX == x && p.mapY == y) return p;
         }
         return null;
+    },
+
+    //プレイヤー処理（パネル＆アイテム）
+    tickPlayer: function() {
+        var player = this.player;
+        var px = ~~((player.x-PN_OFFX+PN_W/2)/PN_W), py = ~~((player.y-PN_OFFY+PN_H/2)/PN_H);
+        if (player.mapX != px || player.mapY != py) {
+            var p = this.checkMapPanel(px, py);
+            if (p) {
+                var vx = px-player.mapX;
+                var vy = py-player.mapY;
+                switch (p.pattern) {
+                    case 1: //横
+                        player.tweener.moveBy(60*vx, 0, this.speed);
+                        break;
+                    case 2: //縦
+                        player.tweener.moveBy(0, 60*vy, this.speed);
+                        break;
+                    case 3: //十字
+                        if (vx != 0) {
+                            player.tweener.moveBy(60*vx, 0, this.speed);
+                        } else {
+                            player.tweener.moveBy(0, 60*vy, this.speed);
+                        }
+                        break;
+                    case 4: //右－下
+                        if (vx != 0) {
+                            //右から進入
+                            player.tweener.moveBy(-30, 0, this.speed/2);
+                            player.tweener.moveBy(0, 30, this.speed/2);
+                        } else {
+                            //下から進入
+                            player.tweener.moveBy(0, -30, this.speed/2);
+                            player.tweener.moveBy(30, 0, this.speed/2);
+                        }
+                        break;
+                    case 5: //左－下
+                        if (vx != 0) {
+                            //左から進入
+                            player.tweener.moveBy(30, 0, this.speed/2);
+                            player.tweener.moveBy(0, 30, this.speed/2);
+                        } else {
+                            //下から進入
+                            player.tweener.moveBy(0, -30, this.speed/2);
+                            player.tweener.moveBy(-30, 0, this.speed/2);
+                        }
+                        break;
+                    case 6: //右－上
+                        if (vx != 0) {
+                            //右から進入
+                            player.tweener.moveBy(-30, 0, this.speed/2);
+                            player.tweener.moveBy(0, -31, this.speed/2);
+                        } else {
+                            //上から進入
+                            player.tweener.moveBy(0, 30, this.speed/2);
+                            player.tweener.moveBy(31, 0, this.speed/2);
+                        }
+                        break;
+                    case 7: //左－下
+                        if (vx != 0) {
+                            //左から進入
+                            player.tweener.moveBy(30, 0, this.speed/2);
+                            player.tweener.moveBy(0, -30, this.speed/2);
+                        } else {
+                            //上から進入
+                            player.tweener.moveBy(0, 30, this.speed/2);
+                            player.tweener.moveBy(-30, 0, this.speed/2);
+                        }
+                        break;
+
+                    //スタート地点用パネル
+                    case 8:
+                        player.tweener.moveBy(30, 0, this.speed/2);
+                        break;
+                    case 9:
+                        player.tweener.moveBy(0, 30,  this.speed/2);
+                        break;
+                    case 10:
+                        player.tweener.moveBy(-30, 0,  this.speed/2);
+                        break;
+                    case 11:
+                        player.tweener.moveBy(0, -30,  this.speed/2);
+                        break;
+                }
+                player.mapX = px;
+                player.mapY = py;
+            } else {
+                //ミス！！
+            }
+        }
     },
 
     //タッチorクリック開始処理
