@@ -192,17 +192,6 @@ tm.define("kumabang.MainScene", {
         lb.tweener.move(SC_W/2, SC_H/2, 500, "easeOutQuint").fadeOut(200).call(function(){that.start = true;lb.remove();});
     },
 
-    //指定マップ座標のパネル取得    
-    getPanel: function(x, y) {
-        var len = this.panels.length;
-        for (var i = 0; i< len; i++) {
-            var p = this.panels[i];
-            if (p.select)continue;
-            if (p.mapX == x && p.mapY == y) return p;
-        }
-        return null;
-    },
-
     //スクリーン座標上のパネル判定
     checkScreenPanel: function(x, y) {
         var len = this.panels.length;
