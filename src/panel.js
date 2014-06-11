@@ -18,6 +18,8 @@ tm.define("kumabang.Panel", {
     //状態フラグ
     onPlayer: false,
     onItem: false,
+    onPlayerBefore: false,
+    dropped: false,
     
     //マップ上パネル位置
     mapX: 0,
@@ -48,11 +50,17 @@ tm.define("kumabang.Panel", {
     },
 
     update: function() {
-        if (this.onPlayer || this.onItem) {
+        if (this.onPlayer || this.onItem || this.dropped) {
             this.disable = true;
         } else {
             this.disable = false;
         }
+        
+        if (this.onPlayerBefore && !this.onPlayer) {
+            this.drop();
+        }
+
+        this.onPlayerBefore = this.onPlayer;
     },
     
     //指定マップ座標へ移動
@@ -73,7 +81,8 @@ tm.define("kumabang.Panel", {
 
     //パネルを落とす    
     drop: function() {
-        this.tweener.clear().to({x: this.x, y: this.y+50, scaleX: 0.5, scaleY: 0.5, alpha: 0}, 100, "easeOutQuint");
+        this.dropped = true;
+        this.tweener.clear().to({x: this.x, y: this.y+20, scaleX: 0.5, scaleY: 0.5, alpha: 0}, 2000, "easeOutQuint");
     },
 });
 
