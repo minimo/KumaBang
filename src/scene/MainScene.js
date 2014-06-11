@@ -161,18 +161,20 @@ tm.define("kumabang.MainScene", {
         }
 
         //スタートメッセージ
-        var lb = tm.display.OutlineLabel("READY", 30).addChildTo(this);
-        lb.setPosition(SC_W/2, SC_H/2);
+        var lb = tm.display.OutlineLabel("３", 30).addChildTo(this);
+        lb.setPosition(SC_W/2, -SC_H/2);
         lb.alpha = 0;
-        lb.fontFamily = "'KS-Kohichi-FeltPen'";
+//        lb.fontFamily = "'KS-Kohichi-FeltPen'";
         lb.align     = "center";
         lb.baseline  = "middle";
         lb.fontSize = 25;
         lb.outlineWidth = 2;
-        lb.tweener.clear().fadeIn(100).wait(1000).fadeOut(100).call(function(){lb.text = "START!!";});
-        lb.tweener.to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1);
-        lb.tweener.wait(500).to({x: SC_W/2, y: SC_H/2, scaleX: 1, scaleY: 1}, 500, "easeOutQuint");
-        lb.tweener.wait(500).to({x: SC_W/2, y: SC_H*1.5, scaleX: 1, scaleY: 1}, 1000, "easeOutQuint").call(function(){lb.remove();});
+        lb.tweener.clear();
+        lb.tweener.call(function(){lb.text = "３";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 400, "easeOutQuint").fadeOut(200);
+        lb.tweener.call(function(){lb.text = "２";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 400, "easeOutQuint").fadeOut(200);
+        lb.tweener.call(function(){lb.text = "１";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 400, "easeOutQuint").fadeOut(200);
+        lb.tweener.call(function(){lb.text = "スタート！";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 500, "easeOutQuint").fadeOut(200);
+        lb.tweener.move(SC_W/2, SC_H/2, 500, "easeOutQuint").fadeOut(200).call(function(){lb.remove();});
     },
 
     //指定マップ座標のパネル取得    
