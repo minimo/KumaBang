@@ -179,11 +179,14 @@ tm.define("kumabang.MainScene", {
         lb.fontSize = 25;
         lb.outlineWidth = 2;
         lb.tweener.clear();
+        lb.tweener.wait(500);
         lb.tweener.call(function(){lb.text = "３";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 400, "easeOutQuint").fadeOut(200);
         lb.tweener.call(function(){lb.text = "２";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 400, "easeOutQuint").fadeOut(200);
         lb.tweener.call(function(){lb.text = "１";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 400, "easeOutQuint").fadeOut(200);
-        lb.tweener.call(function(){lb.text = "スタート！";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 500, "easeOutQuint").fadeOut(200);
-        lb.tweener.move(SC_W/2, SC_H/2, 500, "easeOutQuint").fadeOut(200).call(function(){that.start = true;lb.remove();});
+        lb.tweener.call(function(){lb.text = "スタート！";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 800, "easeOutElastic");
+        lb.tweener.call(function(){that.start = true;});
+        lb.tweener.wait(500);
+        lb.tweener.move(SC_W/2, SC_H/2, 500, "easeOutQuint").fadeOut(200).call(function(){lb.remove();});
     },
 
     //スクリーン座標上のパネル判定
