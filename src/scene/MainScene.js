@@ -25,6 +25,7 @@ tm.define("kumabang.MainScene", {
     startY: 0,
     goalX: 0,
     goalY: 0,
+    startPattern: 0,
 
     //状態フラグ
     ready: false,   //準備ＯＫ
@@ -81,14 +82,24 @@ tm.define("kumabang.MainScene", {
     
     update: function() {
         if (this.ready) {
-            //パネル初期化        
+            //パネル初期化
             this.initStage();
             this.ready = false;
-            this.start = true;
+            this.start = false;
         }
         if (!this.start) return;
         var player = this.player;
-        var px = (player.x-SC_OffX/
+        var px = ~~((player.x-PN_OFFX+PN_W/2)/PN_W), py = ~~((player.y-PN_OFFY+PN_H/2)/PN_H);
+        if (player.mapX != px || player.mapY != py) {
+            var p = this.checkMapPanel(px, py);
+            if (p) {
+                player.tweener.clear().moveBy(60, 0, 2000);
+                player.mapX = px;
+                player.mapY = py;
+            } else {
+                //ミス！！
+            }
+        }
 
         var kb = app.keyboard;
         this.time++;
@@ -123,6 +134,7 @@ tm.define("kumabang.MainScene", {
                 if (item == 8) {
                     this.startX = x;
                     this.startY = y;
+                    this.startPattern = p.pattern;
                 }
                 //ゴール位置
                 if (item == 9) {
@@ -163,10 +175,11 @@ tm.define("kumabang.MainScene", {
         }
 
         //スタートメッセージ
+        var that = this;
         var lb = tm.display.OutlineLabel("３", 30).addChildTo(this);
         lb.setPosition(SC_W/2, -SC_H/2);
         lb.alpha = 0;
-//        lb.fontFamily = "'KS-Kohichi-FeltPen'";
+        lb.fontFamily = "'KS-Kohichi-FeltPen'";
         lb.align     = "center";
         lb.baseline  = "middle";
         lb.fontSize = 25;
@@ -176,7 +189,7 @@ tm.define("kumabang.MainScene", {
         lb.tweener.call(function(){lb.text = "２";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 400, "easeOutQuint").fadeOut(200);
         lb.tweener.call(function(){lb.text = "１";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 400, "easeOutQuint").fadeOut(200);
         lb.tweener.call(function(){lb.text = "スタート！";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 500, "easeOutQuint").fadeOut(200);
-        lb.tweener.move(SC_W/2, SC_H/2, 500, "easeOutQuint").fadeOut(200).call(function(){lb.remove();});
+        lb.tweener.move(SC_W/2, SC_H/2, 500, "easeOutQuint").fadeOut(200).call(function(){that.start = true;lb.remove();});
     },
 
     //指定マップ座標のパネル取得    
@@ -191,7 +204,7 @@ tm.define("kumabang.MainScene", {
     },
 
     //スクリーン座標上のパネル判定
-    checkPanel: function(x, y) {
+    checkScreenPanel: function(x, y) {
         var len = this.panels.length;
         for (var i = 0; i< len; i++) {
             var p = this.panels[i];
@@ -204,7 +217,7 @@ tm.define("kumabang.MainScene", {
     },
 
     //マップ座標上のパネル判定
-    checkMap: function(x, y) {
+    checkMapPanel: function(x, y) {
         var len = this.panels.length;
         for (var i = 0; i< len; i++) {
             var p = this.panels[i];
@@ -221,7 +234,7 @@ tm.define("kumabang.MainScene", {
         var sx = this.moveX = this.beforeX = e.pointing.x;
         var sy = this.moveY = this.beforeY = e.pointing.y;
 
-        var p = this.checkPanel(sx, sy);
+        var p = this.checkScreenPanel(sx, sy);
         if (p) {
             p.select = true;
             p.tweener.clear().scale(0.9, 100);
@@ -249,10 +262,10 @@ tm.define("kumabang.MainScene", {
             var mx = clamp(~~((p.x-PN_OFFX+PN_W_HALF)/PN_W), 0, MAP_W-1);
             var my = clamp(~~((p.y-PN_OFFY+PN_H_HALF)/PN_H), 0, MAP_H-1);
             if (p.mapX != mx || p.mapY != my) {
-                var mp = this.checkMap(mx, my);
+                var mp = this.checkMapPanel(mx, my);
                 if (mp && !mp.disable) {
                     //行き先にパネルが無ければ移動
-                    var fp = this.checkMap(p.mapX, p.MapY);
+                    var fp = this.checkMapPanel(p.mapX, p.MapY);
                     if (!fp) mp.move(p.mapX, p.mapY);
                     p.mapX = mx;
                     p.mapY = my;
