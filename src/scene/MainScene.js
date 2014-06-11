@@ -164,7 +164,7 @@ tm.define("kumabang.MainScene", {
         var lb = tm.display.OutlineLabel("READY", 30).addChildTo(this);
         lb.setPosition(SC_W/2, SC_H/2);
         lb.alpha = 0;
-        lb.fontFamily = "'Orbitron'";
+        lb.fontFamily = "'KS-Kohichi-FeltPen'";
         lb.align     = "center";
         lb.baseline  = "middle";
         lb.fontSize = 25;
