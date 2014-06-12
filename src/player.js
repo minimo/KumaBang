@@ -17,7 +17,7 @@ tm.define("kumabang.Player", {
     onPanel: null,
 
     //状態フラグ
-    status: 0,
+    miss: false,
 
     init: function() {
         //親クラスの初期化
@@ -48,15 +48,22 @@ tm.define("kumabang.Player", {
         this.by = this.y;
         this.time++;
     },
-    
+
     //特殊アクション
     action: function(name) {
         this.nowAnimation = name;
         this.gotoAndPlay(name);
         switch (name) {
             case "startup":
-//                this.tweener.clear().moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint");
+                this.miss = false;
+//                this.tweener.moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint");
                 break;
+            case "miss":
+                this.miss = true;
+                this.gotoAndPlay("miss");
+                this.nowAnimation = "miss";
+                this.tweener.clear().moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint");
+                break
         }
     },
 });
@@ -77,7 +84,6 @@ tm.define("kumabang.Egg", {
         if (this.paused) {
             this.remove();
             this.finished = true;
-
             this.player.visible = true;
         }
     }
@@ -125,7 +131,7 @@ kumabang.createSpriteSheet = function() {
             },
             "miss": {
                 frames:[4,5],
-                frequency: 500,
+                frequency: 23,
             },
             "move": {
                 frames:[1,2,3],

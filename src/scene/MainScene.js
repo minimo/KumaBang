@@ -154,12 +154,15 @@ tm.define("kumabang.MainScene", {
             p2.move(tx, ty);
         }
 
-        //プレイヤー準備
+        //プレイヤー初期化
         var sx = PN_OFFX+this.startX*PN_W;
         var sy = PN_OFFY+this.startY*PN_H;
         this.player.setPosition(sx, sy);
         this.player.scaleX = -1;
         this.player.visible = false;
+        this.player.miss = false;
+
+        //スタート演出初期化
         this.egg.addChildTo(this.playerLayer);
         this.egg.scaleX = -1;
         this.egg.setPosition(sx, sy);
@@ -183,10 +186,10 @@ tm.define("kumabang.MainScene", {
         lb.outlineWidth = 2;
         lb.tweener.clear();
         lb.tweener.wait(500);
-        lb.tweener.call(function(){lb.text = "３";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 400, "easeOutQuint").fadeOut(200);
-        lb.tweener.call(function(){lb.text = "２";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 400, "easeOutQuint").fadeOut(200);
-        lb.tweener.call(function(){lb.text = "１";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 400, "easeOutQuint").fadeOut(200);
-        lb.tweener.call(function(){lb.text = "スタート！";}).to({x: SC_W/2, y: -SC_H}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 800, "easeOutElastic");
+        lb.tweener.call(function(){lb.text = "３";}).to({x: SC_W/2, y: -SC_H/2}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 400, "easeOutElastic").fadeOut(200);
+        lb.tweener.call(function(){lb.text = "２";}).to({x: SC_W/2, y: -SC_H/2}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 400, "easeOutElastic").fadeOut(200);
+        lb.tweener.call(function(){lb.text = "１";}).to({x: SC_W/2, y: -SC_H/2}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 400, "easeOutElastic").fadeOut(200);
+        lb.tweener.call(function(){lb.text = "スタート！";}).to({x: SC_W/2, y: -SC_H/2}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 800, "easeOutElastic");
         lb.tweener.call(function(){that.start = true;});
         lb.tweener.wait(500);
         lb.tweener.move(SC_W/2, SC_H/2, 500, "easeOutQuint").fadeOut(200).call(function(){lb.remove();});
@@ -223,11 +226,12 @@ tm.define("kumabang.MainScene", {
 
     //プレイヤー処理（パネル＆アイテム）
     tickPlayer: function() {
+        var miss = false;
         var that = this;
         var player = this.player;
         var px = ~~((player.x-PN_OFFX+PN_W/2)/PN_W), py = ~~((player.y-PN_OFFY+PN_H/2)/PN_H);
+        if (player.x-PN_OFFX+PN_W/2 < 0 || player.y-PN_OFFY+PN_H/2 < 0)miss = true;
         if (player.mapX != px || player.mapY != py) {
-            var miss = false;
             var p = this.checkMapPanel(px, py);
             if (p) {
                 if (player.onPanel) player.onPanel.onPlayer = false;
@@ -323,11 +327,11 @@ tm.define("kumabang.MainScene", {
             } else {
                 miss = true;
             }
-            if (miss) {
-                //ミス！！
-                player.tweener.clear().moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint");
-                this.stop = true;
-            }
+        }
+        if (miss) {
+            //ミス！！
+            player.action("miss");
+            this.stop = true;
         }
     },
 
