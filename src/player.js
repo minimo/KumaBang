@@ -27,9 +27,17 @@ tm.define("kumabang.Player", {
     update: function() {
         //移動してたらアニメーションする
         if (!this.miss) {
-            if (this.bx != this.x || this.by != this.y) {
+            if (this.bx != this.x) {
                 if (this.nowAnimation !== "move") this.gotoAndPlay("move");
                 this.nowAnimation = "move";
+            } else if (this.by != this.y) {
+                if (this.by-this.y > 0) {
+                    if (this.nowAnimation !== "moveU") this.gotoAndPlay("moveU");
+                    this.nowAnimation = "moveD";
+                } else {
+                    if (this.nowAnimation !== "moveD") this.gotoAndPlay("moveD");
+                    this.nowAnimation = "moveD";
+                }
             } else {
                 this.nowAnimation = "stop";
                 this.gotoAndPlay("stop");
@@ -141,22 +149,22 @@ kumabang.createSpriteSheet = function() {
             },
             "moveL": {
                 frames:[12,13,14],
-                next: "move",
+                next: "moveL",
                 frequency: 5,
             },
             "moveR": {
                 frames:[15,16,17],
-                next: "move",
+                next: "moveR",
                 frequency: 5,
             },
             "moveD": {
                 frames:[6,7,8],
-                next: "move",
+                next: "moveD",
                 frequency: 5,
             },
             "moveU": {
                 frames:[9,10,11],
-                next: "move",
+                next: "moveU",
                 frequency: 5,
             },
         },
