@@ -30,9 +30,10 @@ tm.define("kumabang.MainScene", {
     //状態フラグ
     ready: false,   //準備ＯＫ
     start: false,   //ゲームスタート
+    stop: false,
     
     //１つのパネルを通る時間
-    speed: 1500,
+    speed: 2000,
 
     //パネル配列
     panels: null,
@@ -89,8 +90,9 @@ tm.define("kumabang.MainScene", {
             this.initStage();
             this.ready = false;
             this.start = false;
+            this.stop = false;
         }
-        if (!this.start) return;
+        if (!this.start || this.stop) return;
 
         this.tickPlayer();
         this.tickPanel();
@@ -139,6 +141,7 @@ tm.define("kumabang.MainScene", {
                 this.panels.push(p);
             }
         }
+
         //パネルシャッフル
         for (var i = 0; i < rand(15, 20); i++){
             var a = rand(0, this.panels.length-1);
@@ -150,7 +153,7 @@ tm.define("kumabang.MainScene", {
             p1.move(p2.mapX, p2.mapY);
             p2.move(tx, ty);
         }
-        
+
         //プレイヤー準備
         var sx = PN_OFFX+this.startX*PN_W;
         var sy = PN_OFFY+this.startY*PN_H;
@@ -213,11 +216,17 @@ tm.define("kumabang.MainScene", {
         return null;
     },
 
+    //マップ上イベントチェック（アイテム取得等）
+    checkMapEvent: function(x, y) {
+        return;
+    },
+
     //プレイヤー処理（パネル＆アイテム）
     tickPlayer: function() {
         var player = this.player;
         var px = ~~((player.x-PN_OFFX+PN_W/2)/PN_W), py = ~~((player.y-PN_OFFY+PN_H/2)/PN_H);
         if (player.mapX != px || player.mapY != py) {
+            var miss = false;
             var p = this.checkMapPanel(px, py);
             if (p) {
                 if (player.onPanel) player.onPanel.onPlayer = false;
@@ -225,88 +234,97 @@ tm.define("kumabang.MainScene", {
                 player.onPanel = p;
                 var vx = px-player.mapX;
                 var vy = py-player.mapY;
-                var spd = this.speed/2;
+                var spd = this.speed;
                 switch (p.pattern) {
                     case 1: //横
-                        player.tweener.moveBy(30*vx, 0, spd);
-                        player.tweener.moveBy(30*vx, 0, spd);
+                        if (vx != 0) {
+                            player.tweener.moveBy(60*vx, 0, spd);
+                        } else {
+                            miss = true;
+                        }
                         break;
                     case 2: //縦
-                        player.tweener.moveBy(0, 30*vy, spd);
-                        player.tweener.moveBy(0, 30*vy, spd);
+                        if (vy != 0) {
+                            player.tweener.moveBy(0, 60*vy, spd);
+                        } else {
+                            miss = true;
+                        }
                         break;
                     case 3: //十字
                         if (vx != 0) {
-                            player.tweener.moveBy(30*vx, 0, spd);
-                            player.tweener.moveBy(30*vx, 0, spd);
+                            player.tweener.moveBy(60*vx, 0, spd);
                         } else {
-                            player.tweener.moveBy(0, 30*vy, spd);
                             player.tweener.moveBy(0, 30*vy, spd);
                         }
                         break;
                     case 4: //右－下
-                        if (vx != 0) {
+                        if (vx == -1) {
                             //右から進入
-                            player.tweener.moveBy(-30, 0, spd);
-                            player.tweener.moveBy(0, 30, spd);
-                        } else {
+                            player.tweener.moveBy(0, 60, spd);
+                        } else if (vy == -1) {
                             //下から進入
-                            player.tweener.moveBy(0, -30, spd);
-                            player.tweener.moveBy(30, 0, spd);
+                            player.tweener.moveBy(60, 0, spd);
+                        } else {
+                            miss = true;
                         }
                         break;
                     case 5: //左－下
-                        if (vx != 0) {
+                        if (vx == 1) {
                             //左から進入
-                            player.tweener.moveBy(30, 0, spd);
-                            player.tweener.moveBy(0, 30, spd);
-                        } else {
+                            player.tweener.moveBy(0, 60, spd);
+                        } else if (vy == -1) {
                             //下から進入
-                            player.tweener.moveBy(0, -30, spd);
-                            player.tweener.moveBy(-30, 0, spd);
+                            player.tweener.moveBy(-60, 0, spd);
+                        } else {
+                            miss = true;
                         }
                         break;
                     case 6: //右－上
-                        if (vx != 0) {
+                        if (vx == -1) {
                             //右から進入
-                            player.tweener.moveBy(-30, 0, spd);
-                            player.tweener.moveBy(0, -31, spd);
-                        } else {
+                            player.tweener.moveBy(0, -60, spd);
+                        } else if (vy == 1) {
                             //上から進入
-                            player.tweener.moveBy(0, 30, spd);
-                            player.tweener.moveBy(31, 0, spd);
+                            player.tweener.moveBy(60, 0, spd);
+                        } else {
+                            miss = true;
                         }
                         break;
                     case 7: //左－下
-                        if (vx != 0) {
+                        if (vx == 1) {
                             //左から進入
-                            player.tweener.moveBy(30, 0, spd);
-                            player.tweener.moveBy(0, -30, spd);
-                        } else {
+                            player.tweener.moveBy(0, -60, spd);
+                        } else if (vy == 1) {
                             //上から進入
-                            player.tweener.moveBy(0, 30, spd);
-                            player.tweener.moveBy(-30, 0, spd);
+                            player.tweener.moveBy(-60, 0, spd);
+                        } else {
+                            miss = true;
                         }
                         break;
 
                     //スタート地点用パネル
                     case 8:
-                        player.tweener.moveBy(30, 0, this.speed/2);
+                        player.tweener.moveBy(60, 0, spd);
                         break;
                     case 9:
-                        player.tweener.moveBy(0, 30,  this.speed/2);
+                        player.tweener.moveBy(0, 60, spd);
                         break;
                     case 10:
-                        player.tweener.moveBy(-30, 0,  this.speed/2);
+                        player.tweener.moveBy(-60, 0, spd);
                         break;
                     case 11:
-                        player.tweener.moveBy(0, -30,  this.speed/2);
+                        player.tweener.moveBy(0, -60, spd);
                         break;
                 }
                 player.mapX = px;
                 player.mapY = py;
             } else {
+                miss = true;
+            }
+            if (miss) {
                 //ミス！！
+                player.tweener.clear().moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint");
+                this.stop = true;
             }
         }
     },
