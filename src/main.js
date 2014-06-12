@@ -21,8 +21,9 @@ MAP_W = 5;
 MAP_H = 5;
 
 //パネルサイズ
-PN_W = 60;
-PN_H = 60;
+PN_SIZE = 60;
+PN_W = PN_SIZE;
+PN_H = PN_SIZE;
 PN_W_HALF = PN_W/2;
 PN_H_HALF = PN_H/2;
 
