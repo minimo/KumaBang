@@ -28,8 +28,8 @@ tm.define("kumabang.Player", {
         //移動してたらアニメーションする
         if (!this.miss) {
             if (this.bx != this.x) {
-                if (this.nowAnimation !== "move") this.gotoAndPlay("move");
-                this.nowAnimation = "move";
+                if (this.nowAnimation !== "moveL") this.gotoAndPlay("moveL");
+                this.nowAnimation = "moveL";
             } else if (this.by != this.y) {
                 if (this.by-this.y > 0) {
                     if (this.nowAnimation !== "moveU") this.gotoAndPlay("moveU");
@@ -63,6 +63,8 @@ tm.define("kumabang.Player", {
         this.gotoAndPlay(name);
         switch (name) {
             case "goal":
+                this.gotoAndPlay("move");
+                this.nowAnimation = "move";
                 this.tweener.moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint").wait(300);
                 this.tweener.moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint").wait(300);
                 this.tweener.moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint").wait(300);
