@@ -54,9 +54,10 @@ tm.define("kumabang.Player", {
         this.nowAnimation = name;
         this.gotoAndPlay(name);
         switch (name) {
-            case "startup":
-                this.miss = false;
-//                this.tweener.moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint");
+            case "goal":
+                this.tweener.moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint").wait(300);
+                this.tweener.moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint").wait(300);
+                this.tweener.moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint").wait(300);
                 break;
             case "miss":
                 this.miss = true;

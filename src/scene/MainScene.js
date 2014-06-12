@@ -320,6 +320,14 @@ tm.define("kumabang.MainScene", {
                     case 11:
                         player.tweener.moveBy(0, -60, spd);
                         break;
+
+                    //ゴール地点用パネル
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                        player.action("goal");
+                        break;
                 }
                 player.tweener.call(function(){that.checkMapEvent(px, py);});
                 player.mapX = px;
