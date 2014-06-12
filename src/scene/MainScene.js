@@ -31,8 +31,8 @@ tm.define("kumabang.MainScene", {
     ready: false,   //準備ＯＫ
     start: false,   //ゲームスタート
     stop: false,
-    
-    //１つのパネルを通る時間
+
+    //１つのパネルを通る時間（milli second)
     speed: 2000,
 
     //パネル配列
@@ -223,6 +223,7 @@ tm.define("kumabang.MainScene", {
 
     //プレイヤー処理（パネル＆アイテム）
     tickPlayer: function() {
+        var that = this;
         var player = this.player;
         var px = ~~((player.x-PN_OFFX+PN_W/2)/PN_W), py = ~~((player.y-PN_OFFY+PN_H/2)/PN_H);
         if (player.mapX != px || player.mapY != py) {
@@ -304,7 +305,7 @@ tm.define("kumabang.MainScene", {
 
                     //スタート地点用パネル
                     case 8:
-                        player.tweener.moveBy(60, 0, spd);
+                        player.tweener.moveBy(60, 0, spd)
                         break;
                     case 9:
                         player.tweener.moveBy(0, 60, spd);
@@ -316,6 +317,7 @@ tm.define("kumabang.MainScene", {
                         player.tweener.moveBy(0, -60, spd);
                         break;
                 }
+                player.tweener.call(function(){that.checkMapEvent(px, py);});
                 player.mapX = px;
                 player.mapY = py;
             } else {

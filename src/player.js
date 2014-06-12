@@ -16,19 +16,24 @@ tm.define("kumabang.Player", {
     //乗っているパネル
     onPanel: null,
 
+    //状態フラグ
+    status: 0,
+
     init: function() {
         //親クラスの初期化
         this.superInit(player, 32, 32);
         this.origin.y = 0.9;
     },
     update: function() {
-        //移動してたらアニメーションする        
-        if (this.bx != this.x || this.by != this.y) {
-            if (this.nowAnimation !== "move") this.gotoAndPlay("move");
-            this.nowAnimation = "move";
-        } else {
-            this.nowAnimation = "stop";
-            this.gotoAndPlay("stop");
+        //移動してたらアニメーションする
+        if (!this.miss) {
+            if (this.bx != this.x || this.by != this.y) {
+                if (this.nowAnimation !== "move") this.gotoAndPlay("move");
+                this.nowAnimation = "move";
+            } else {
+                this.nowAnimation = "stop";
+                this.gotoAndPlay("stop");
+            }
         }
 
         //左右の向き
@@ -117,6 +122,10 @@ kumabang.createSpriteSheet = function() {
                 frames:[1,2,3,1,2,3,1,2,3,1,2,3,1,2,3],
                 next: "stop",
                 frequency: 5,
+            },
+            "miss": {
+                frames:[4,5],
+                frequency: 500,
             },
             "move": {
                 frames:[1,2,3],
