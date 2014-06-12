@@ -241,36 +241,37 @@ tm.define("kumabang.MainScene", {
                 player.onPanel = p;
                 var vx = px-player.mapX;
                 var vy = py-player.mapY;
+                var dis = PN_SIZE;
                 var spd = this.speed;
                 switch (p.pattern) {
                     case 1: //横
                         if (vx != 0) {
-                            player.tweener.moveBy(60*vx, 0, spd);
+                            player.tweener.moveBy(dis*vx, 0, spd);
                         } else {
                             miss = true;
                         }
                         break;
                     case 2: //縦
                         if (vy != 0) {
-                            player.tweener.moveBy(0, 60*vy, spd);
+                            player.tweener.moveBy(0, dis*vy, spd);
                         } else {
                             miss = true;
                         }
                         break;
                     case 3: //十字
                         if (vx != 0) {
-                            player.tweener.moveBy(60*vx, 0, spd);
+                            player.tweener.moveBy(dis*vx, 0, spd);
                         } else {
-                            player.tweener.moveBy(0, 30*vy, spd);
+                            player.tweener.moveBy(0, dis*vy, spd);
                         }
                         break;
                     case 4: //右－下
                         if (vx == -1) {
                             //右から進入
-                            player.tweener.moveBy(0, 60, spd);
+                            player.tweener.moveBy(0, dis, spd);
                         } else if (vy == -1) {
                             //下から進入
-                            player.tweener.moveBy(60, 0, spd);
+                            player.tweener.moveBy(dis, 0, spd);
                         } else {
                             miss = true;
                         }
@@ -278,10 +279,10 @@ tm.define("kumabang.MainScene", {
                     case 5: //左－下
                         if (vx == 1) {
                             //左から進入
-                            player.tweener.moveBy(0, 60, spd);
+                            player.tweener.moveBy(0, dis, spd);
                         } else if (vy == -1) {
                             //下から進入
-                            player.tweener.moveBy(-60, 0, spd);
+                            player.tweener.moveBy(-dis, 0, spd);
                         } else {
                             miss = true;
                         }
@@ -289,10 +290,10 @@ tm.define("kumabang.MainScene", {
                     case 6: //右－上
                         if (vx == -1) {
                             //右から進入
-                            player.tweener.moveBy(0, -60, spd);
+                            player.tweener.moveBy(0, -dis, spd);
                         } else if (vy == 1) {
                             //上から進入
-                            player.tweener.moveBy(60, 0, spd);
+                            player.tweener.moveBy(dis, 0, spd);
                         } else {
                             miss = true;
                         }
@@ -300,10 +301,10 @@ tm.define("kumabang.MainScene", {
                     case 7: //左－下
                         if (vx == 1) {
                             //左から進入
-                            player.tweener.moveBy(0, -60, spd);
+                            player.tweener.moveBy(0, -dis, spd);
                         } else if (vy == 1) {
                             //上から進入
-                            player.tweener.moveBy(-60, 0, spd);
+                            player.tweener.moveBy(-dis, 0, spd);
                         } else {
                             miss = true;
                         }
@@ -311,16 +312,16 @@ tm.define("kumabang.MainScene", {
 
                     //スタート地点用パネル
                     case 8:
-                        player.tweener.moveBy(60, 0, spd)
+                        player.tweener.moveBy(dis, 0, spd)
                         break;
                     case 9:
-                        player.tweener.moveBy(0, 60, spd);
+                        player.tweener.moveBy(0, dis, spd);
                         break;
                     case 10:
-                        player.tweener.moveBy(-60, 0, spd);
+                        player.tweener.moveBy(-dis, 0, spd);
                         break;
                     case 11:
-                        player.tweener.moveBy(0, -60, spd);
+                        player.tweener.moveBy(0, -dis, spd);
                         break;
 
                     //ゴール地点用パネル

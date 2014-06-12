@@ -90,6 +90,9 @@ tm.define("kumabang.Panel", {
             this.tweener.clear().to({x: this.x, y: this.y+20, scaleX: 0.5, scaleY: 0.5, alpha: 0}, 2000, "easeOutQuint");
         } else {
             //十字パネルの場合
+            var dummy = tm.display.Sprite("panel", PN_W, PN_H).addChildTo(this);
+            dummy.setFrameIndex(3, PN_W, PN_H);
+            dummy.tweener.fadeOut(500).call(function(){dummy.remove();});
             if (this.inX != 0) {
                 this.pattern = 2;
             } else {
