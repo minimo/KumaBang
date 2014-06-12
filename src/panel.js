@@ -25,6 +25,10 @@ tm.define("kumabang.Panel", {
     mapX: 0,
     mapY: 0,
 
+    //プレイヤー進入方向
+    inX: 0,
+    inY: 0,
+
     init: function() {
         //親クラスの初期化
         this.superInit("panel", PN_W, PN_H);
@@ -79,10 +83,19 @@ tm.define("kumabang.Panel", {
         this.tweener.clear().to({x: dx, y: dy, scaleX: 1, scaleY: 1}, 100, "easeOutQuint");
     },
 
-    //パネルを落とす    
+    //パネルを落とす
     drop: function() {
-        this.dropped = true;
-        this.tweener.clear().to({x: this.x, y: this.y+20, scaleX: 0.5, scaleY: 0.5, alpha: 0}, 2000, "easeOutQuint");
+        if (this._pattern != 3) {
+            this.dropped = true;
+            this.tweener.clear().to({x: this.x, y: this.y+20, scaleX: 0.5, scaleY: 0.5, alpha: 0}, 2000, "easeOutQuint");
+        } else {
+            //十字パネルの場合
+            if (this.inX != 0) {
+                this.pattern = 2;
+            } else {
+                this.pattern = 1;
+            }
+        }
     },
 });
 

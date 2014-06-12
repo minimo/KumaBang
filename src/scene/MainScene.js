@@ -236,6 +236,8 @@ tm.define("kumabang.MainScene", {
             if (p) {
                 if (player.onPanel) player.onPanel.onPlayer = false;
                 p.onPlayer = true;
+                p.inX = vx;
+                p.inY = vy;
                 player.onPanel = p;
                 var vx = px-player.mapX;
                 var vy = py-player.mapY;
