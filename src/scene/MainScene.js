@@ -349,15 +349,13 @@ tm.define("kumabang.MainScene", {
             var that = this;
             var lb = tm.display.OutlineLabel("ミス！！", 30).addChildTo(this);
             lb.setPosition(SC_W/2, -SC_H/2);
-            lb.alpha = 0;
             lb.fontFamily = "'KS-Kohichi-FeltPen'";
             lb.align     = "center";
             lb.baseline  = "middle";
             lb.fontSize = 60;
             lb.outlineWidth = 2;
             lb.tweener.clear();
-            lb.tweener.wait(500);
-            lb.tweener.move(SC_W/2, SC_H/2, 600, "easeOutBounce").wait(100).fadeOut(100).call(function(){lb.remove();});
+            lb.tweener.move(SC_W/2, SC_H/2, 1000, "easeOutBounce").wait(1000).fadeOut(100).call(function(){lb.remove();});
         }
     },
 
