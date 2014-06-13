@@ -160,7 +160,7 @@ tm.define("kumabang.MainScene", {
         this.player.setPosition(sx, sy);
         this.player.scaleX = -1;
         this.player.visible = false;
-        this.player.miss = false;
+        this.player.special = false;
 
         //スタート演出初期化
         this.egg.addChildTo(this.playerLayer);

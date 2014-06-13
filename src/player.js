@@ -17,16 +17,18 @@ tm.define("kumabang.Player", {
     onPanel: null,
 
     //状態フラグ
-    miss: false,
+    special: false,  //特殊アクション中
 
     init: function() {
         //親クラスの初期化
         this.superInit(player, 32, 32);
         this.origin.y = 0.9;
     },
+
     update: function() {
-        //移動してたらアニメーションする
-        if (!this.miss) {
+        //基本アクション
+        if (!this.special) {
+            //移動してたらアニメーションする
             if (this.bx != this.x) {
                 if (this.nowAnimation !== "moveL") this.gotoAndPlay("moveL");
                 this.nowAnimation = "moveL";
@@ -56,6 +58,12 @@ tm.define("kumabang.Player", {
         this.by = this.y;
         this.time++;
     },
+    
+    startup: function() {
+        this.special = false;
+        this.gotoAndPlay("stop");
+        this.nowAnimation = "stop";
+    },
 
     //特殊アクション
     action: function(name) {
@@ -63,14 +71,14 @@ tm.define("kumabang.Player", {
         this.gotoAndPlay(name);
         switch (name) {
             case "goal":
-                this.gotoAndPlay("move");
-                this.nowAnimation = "move";
+                var that = this;
+                this.tweener.call(function(){that.special = true; that.gotoAndPlay("move"); that.nowAnimation = "move";});
                 this.tweener.moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint").wait(300);
                 this.tweener.moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint").wait(300);
                 this.tweener.moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint").wait(300);
                 break;
             case "miss":
-                this.miss = true;
+                this.special = true;
                 this.gotoAndPlay("miss");
                 this.nowAnimation = "miss";
                 this.tweener.clear().moveBy(0,-20,200,"easeOutQuint").moveBy(0,20,150,"easeOutQuint");
