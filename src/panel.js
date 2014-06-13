@@ -29,6 +29,9 @@ tm.define("kumabang.Panel", {
     inX: 0,
     inY: 0,
 
+    //所属シーン
+    scene: null,
+
     init: function() {
         //親クラスの初期化
         this.superInit("panel", PN_W, PN_H);
@@ -99,6 +102,15 @@ tm.define("kumabang.Panel", {
                 this.pattern = 1;
             }
         }
+        this.scene.score += 1000;
+        var lb = tm.display.OutlineLabel("1000", 30).addChildTo(this.scene);
+        lb.setPosition(this.x, this.y);
+        lb.fontFamily = "'KS-Kohichi-FeltPen'";
+        lb.align     = "center";
+        lb.baseline  = "middle";
+        lb.fontSize = 20;
+        lb.outlineWidth = 2;
+        lb.tweener.moveBy(0,-30, 1500,"easeOutQuad").fadeOut(500).call(function(){lb.remove();});
     },
 });
 

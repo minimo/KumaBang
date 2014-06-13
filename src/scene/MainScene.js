@@ -13,8 +13,12 @@ tm.define("kumabang.MainScene", {
     touches: null,
     touchID: -1,
 
-    //エンドレスモード     
-    endless: false,   
+    //エンドレスモード
+    endless: false,
+    
+    //ゲーム内情報
+    score: 0,   //スコア
+    life: 3,    //ライフ
     
     //現在ステージデータ
     stageNumber: 1,
@@ -68,9 +72,6 @@ tm.define("kumabang.MainScene", {
         this.playerLayer = tm.app.Object2D().addChildTo(this);
         this.itemLayer = tm.app.Object2D().addChildTo(this);
 
-        //目隠し
-        this.mask = tm.display.Sprite("bg", SC_W*2, SC_H*2).addChildTo(this);
-
         //プレイヤー準備        
         kumabang.createSpriteSheet();
         this.player = kumabang.Player().addChildTo(this.playerLayer);
@@ -85,6 +86,22 @@ tm.define("kumabang.MainScene", {
         //フラグ初期化
         this.ready = true;
         this.start = false;
+
+        //スコア表示
+        var that = this;
+        var lb = this.scoreLabel = tm.display.OutlineLabel("得点:", 30).addChildTo(this);
+        lb.setPosition(8, 32);
+        lb.fontFamily = "'KS-Kohichi-FeltPen'";
+        lb.align     = "left";
+        lb.baseline  = "middle";
+        lb.fontSize = 20;
+        lb.outlineWidth = 2;
+        lb.update = function() {
+            this.text = "得点:"+that.score;
+        }
+
+        //目隠し
+        this.mask = tm.display.Sprite("bg", SC_W*2, SC_H*2).addChildTo(this);
     },
     
     update: function() {
@@ -117,7 +134,7 @@ tm.define("kumabang.MainScene", {
 
         //パネル全消去
         if (this.panels) {
-            for (i in this.panels) {
+            for (var i in this.panels) {
                 this.panels[i].remove();
             }
         }
@@ -131,6 +148,7 @@ tm.define("kumabang.MainScene", {
                 p.y = y*PN_H+PN_OFFY;
                 p.mapX = x;
                 p.mapY = y;
+                p.scene = this;
                 p.pattern = this.stageData.map[y][x];
                 var item = this.stageData.item[y][x];
                 if (item != 0) p.shuffle = false;
@@ -181,6 +199,7 @@ tm.define("kumabang.MainScene", {
         this.egg.scaleX = -1;
         this.egg.setPosition(sx, sy);
         this.egg.gotoAndPlay("enter");
+        this.egg.startup();
 
         //ゴール準備
         if (!this.endless) {

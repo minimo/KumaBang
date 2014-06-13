@@ -100,7 +100,6 @@ tm.define("kumabang.Egg", {
         //親クラスの初期化
         this.superInit(egg, 32, 32);
         this.origin.y = 0.9;
-        this.tweener.clear().wait(300).moveBy(0, -20, 200, "easeOutQuint").moveBy(0, 20, 150, "easeOutQuint");
     },
     update: function() {
         if (this.paused) {
@@ -108,6 +107,10 @@ tm.define("kumabang.Egg", {
             this.finished = true;
             this.player.visible = true;
         }
+    },
+    
+    startup: function() {
+        this.tweener.clear().wait(300).moveBy(0, -20, 200, "easeOutQuint").moveBy(0, 20, 150, "easeOutQuint");
     }
 });
 
