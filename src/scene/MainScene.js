@@ -185,16 +185,16 @@ tm.define("kumabang.MainScene", {
         lb.fontFamily = "'KS-Kohichi-FeltPen'";
         lb.align     = "center";
         lb.baseline  = "middle";
-        lb.fontSize = 25;
+        lb.fontSize = 60;
         lb.outlineWidth = 2;
         lb.tweener.clear();
         lb.tweener.wait(500);
-        lb.tweener.call(function(){lb.text = "３";}).to({x: SC_W/2, y: -SC_H/2}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 700, "easeOutBounce").fadeOut(500);
-        lb.tweener.call(function(){lb.text = "２";}).to({x: SC_W/2, y: -SC_H/2}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 700, "easeOutBounce").fadeOut(500);
-        lb.tweener.call(function(){lb.text = "１";}).to({x: SC_W/2, y: -SC_H/2}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 700, "easeOutBounce").fadeOut(500);
-        lb.tweener.call(function(){lb.text = "スタート！";}).to({x: SC_W/2, y: -SC_H/2}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 800, "easeOutBounce");
+        lb.tweener.call(function(){lb.text = "３";}).to({x: SC_W/2, y: -SC_H/2}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 600, "easeOutBounce").wait(100).fadeOut(100);
+        lb.tweener.call(function(){lb.text = "２";}).to({x: SC_W/2, y: -SC_H/2}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 600, "easeOutBounce").wait(100).fadeOut(100);
+        lb.tweener.call(function(){lb.text = "１";}).to({x: SC_W/2, y: -SC_H/2}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 600, "easeOutBounce").wait(100).fadeOut(100);
+        lb.tweener.call(function(){lb.text = "スタート！";}).to({x: SC_W/2, y: -SC_H/2}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 700, "easeOutBounce");
         lb.tweener.call(function(){that.start = true;});
-        lb.tweener.wait(500);
+        lb.tweener.wait(200);
         lb.tweener.move(SC_W/2, SC_H/2, 500, "easeOutQuint").fadeOut(200).call(function(){lb.remove();});
     },
 
@@ -346,6 +346,18 @@ tm.define("kumabang.MainScene", {
             //ミス！！
             player.action("miss");
             this.stop = true;
+            var that = this;
+            var lb = tm.display.OutlineLabel("ミス！！", 30).addChildTo(this);
+            lb.setPosition(SC_W/2, -SC_H/2);
+            lb.alpha = 0;
+            lb.fontFamily = "'KS-Kohichi-FeltPen'";
+            lb.align     = "center";
+            lb.baseline  = "middle";
+            lb.fontSize = 60;
+            lb.outlineWidth = 2;
+            lb.tweener.clear();
+            lb.tweener.wait(500);
+            lb.tweener.move(SC_W/2, SC_H/2, 600, "easeOutBounce").wait(100).fadeOut(100).call(function(){lb.remove();});
         }
     },
 
