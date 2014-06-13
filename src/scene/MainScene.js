@@ -68,6 +68,9 @@ tm.define("kumabang.MainScene", {
         this.playerLayer = tm.app.Object2D().addChildTo(this);
         this.itemLayer = tm.app.Object2D().addChildTo(this);
 
+        //目隠し
+        this.mask = tm.display.Sprite("bg", SC_W*2, SC_H*2).addChildTo(this);
+
         //プレイヤー準備        
         kumabang.createSpriteSheet();
         this.player = kumabang.Player().addChildTo(this.playerLayer);
@@ -79,7 +82,7 @@ tm.define("kumabang.MainScene", {
         this.egg.player = this.player;
         this.egg.setPosition(PN_OFFX, PN_OFFY);
 
-        //状態フラグ初期化
+        //フラグ初期化
         this.ready = true;
         this.start = false;
     },
@@ -91,6 +94,8 @@ tm.define("kumabang.MainScene", {
             this.ready = false;
             this.start = false;
             this.stop = false;
+
+            this.mask.tweener.clear().fadeOut(300);
         }
         if (!this.start || this.stop) return;
 
@@ -105,6 +110,10 @@ tm.define("kumabang.MainScene", {
     initStage: function() {
         //ステージデータコピー
         this.stageData = kumabang.stageData[this.stageNumber-1];
+
+        //フラグ初期化
+        this.ready = true;
+        this.start = false;
 
         //パネル全消去
         if (this.panels) {
@@ -163,6 +172,8 @@ tm.define("kumabang.MainScene", {
             this.player.scaleX = -1;
         }
         this.player.setPosition(sx, sy);
+        this.player.bx = this.player.x;
+        this.player.by = this.player.y;
         this.player.startup();
 
         //スタート演出初期化
@@ -188,7 +199,7 @@ tm.define("kumabang.MainScene", {
         lb.fontSize = 60;
         lb.outlineWidth = 2;
         lb.tweener.clear();
-        lb.tweener.wait(500);
+        lb.tweener.wait(600);
         lb.tweener.call(function(){lb.text = "３";}).to({x: SC_W/2, y: -SC_H/2}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 600, "easeOutBounce").wait(100).fadeOut(100);
         lb.tweener.call(function(){lb.text = "２";}).to({x: SC_W/2, y: -SC_H/2}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 600, "easeOutBounce").wait(100).fadeOut(100);
         lb.tweener.call(function(){lb.text = "１";}).to({x: SC_W/2, y: -SC_H/2}, 1).fadeIn(1).move(SC_W/2, SC_H/2, 600, "easeOutBounce").wait(100).fadeOut(100);
@@ -196,6 +207,13 @@ tm.define("kumabang.MainScene", {
         lb.tweener.call(function(){that.start = true;});
         lb.tweener.wait(200);
         lb.tweener.move(SC_W/2, SC_H/2, 500, "easeOutQuint").fadeOut(200).call(function(){lb.remove();});
+    },
+
+    //ステージ再スタート
+    restartStage: function() {
+        //フラグ初期化
+        this.ready = true;
+        this.start = false;
     },
 
     //スクリーン座標上のパネル判定
@@ -315,15 +333,19 @@ tm.define("kumabang.MainScene", {
 
                     //スタート地点用パネル
                     case 8:
+                        player.tweener.clear();
                         player.tweener.moveBy(dis, 0, spd)
                         break;
                     case 9:
+                        player.tweener.clear();
                         player.tweener.moveBy(0, dis, spd);
                         break;
                     case 10:
+                        player.tweener.clear();
                         player.tweener.moveBy(-dis, 0, spd);
                         break;
                     case 11:
+                        player.tweener.clear();
                         player.tweener.moveBy(0, -dis, spd);
                         break;
 
@@ -355,14 +377,15 @@ tm.define("kumabang.MainScene", {
             lb.fontSize = 60;
             lb.outlineWidth = 2;
             lb.tweener.clear();
-            lb.tweener.move(SC_W/2, SC_H/2, 1000, "easeOutBounce").wait(1000).fadeOut(100).call(function(){lb.remove();});
+            lb.tweener.move(SC_W/2, SC_H/2, 1000, "easeOutBounce").wait(1000).fadeOut(100);
+            lb.tweener.call(function(){lb.remove();});
+            this.mask.tweener.clear().wait(3000).fadeIn(500).wait(100).call(function(){that.restartStage();});
         }
     },
 
     //パネル処理
     tickPanel: function() {
-        var len = this.panels.length;
-        for (var i = 0; i< len; i++) {
+        for (var i = 0; i< this.panels.length; i++) {
             var p = this.panels[i];
             if (p.dropped) {
                 this.panels.splice(i,1);

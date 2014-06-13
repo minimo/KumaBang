@@ -64,6 +64,8 @@ tm.define("kumabang.Player", {
         this.special = false;
         this.gotoAndPlay("stop");
         this.nowAnimation = "stop";
+        this.mapX = -1;
+        this.mapY = -1;
     },
 
     //特殊アクション
