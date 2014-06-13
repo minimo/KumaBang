@@ -269,12 +269,13 @@ tm.define("kumabang.MainScene", {
         var miss = false, goal = false;
         var that = this;
         var player = this.player;
+        var passPanel = null;
         var px = ~~((player.x-PN_OFFX+PN_W/2)/PN_W), py = ~~((player.y-PN_OFFY+PN_H/2)/PN_H);
         if (player.x-PN_OFFX+PN_W/2 < 0 || player.y-PN_OFFY+PN_H/2 < 0)miss = true;
         if (player.mapX != px || player.mapY != py) {
             var p = this.checkMapPanel(px, py);
             if (p) {
-                if (player.onPanel) player.onPanel.onPlayer = false;
+                passPanel = player.onPanel;
                 p.onPlayer = true;
                 p.inX = vx;
                 p.inY = vy;
@@ -399,6 +400,8 @@ tm.define("kumabang.MainScene", {
             lb.tweener.move(SC_W/2, SC_H/2, 1000, "easeOutBounce").wait(1000).fadeOut(100);
             lb.tweener.call(function(){lb.remove();});
             this.mask.tweener.clear().wait(3000).fadeIn(500).wait(1000).call(function(){that.restartStage();});
+        } else {
+            if (passPanel) passPanel.onPlayer = false;
         }
         //ゴール！
         if (goal) {
