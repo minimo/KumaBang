@@ -247,7 +247,7 @@ tm.define("kumabang.MainScene", {
 
     //プレイヤー処理（パネル＆アイテム）
     tickPlayer: function() {
-        var miss = false;
+        var miss = false, goal = false;
         var that = this;
         var player = this.player;
         var px = ~~((player.x-PN_OFFX+PN_W/2)/PN_W), py = ~~((player.y-PN_OFFY+PN_H/2)/PN_H);
@@ -354,7 +354,7 @@ tm.define("kumabang.MainScene", {
                     case 13:
                     case 14:
                     case 15:
-                        player.action("goal");
+                        goal = true;
                         break;
                 }
                 player.tweener.call(function(){that.checkMapEvent(px, py);});
@@ -364,8 +364,8 @@ tm.define("kumabang.MainScene", {
                 miss = true;
             }
         }
+        //ミス！！
         if (miss) {
-            //ミス！！
             player.action("miss");
             this.stop = true;
             var that = this;
@@ -379,7 +379,25 @@ tm.define("kumabang.MainScene", {
             lb.tweener.clear();
             lb.tweener.move(SC_W/2, SC_H/2, 1000, "easeOutBounce").wait(1000).fadeOut(100);
             lb.tweener.call(function(){lb.remove();});
-            this.mask.tweener.clear().wait(3000).fadeIn(500).wait(100).call(function(){that.restartStage();});
+            this.mask.tweener.clear().wait(3000).fadeIn(500).wait(1000).call(function(){that.restartStage();});
+        }
+        //ゴール！
+        if (goal) {
+            player.action("goal");
+            this.stop = true;
+            var that = this;
+            var lb = tm.display.OutlineLabel("ゴール！！", 30).addChildTo(this);
+            lb.setPosition(SC_W/2, -SC_H/2);
+            lb.fontFamily = "'KS-Kohichi-FeltPen'";
+            lb.align     = "center";
+            lb.baseline  = "middle";
+            lb.fontSize = 60;
+            lb.outlineWidth = 2;
+            lb.tweener.clear();
+            lb.tweener.move(SC_W/2, SC_H/2, 4000, "easeOutBounce").wait(1000).fadeOut(100);
+            lb.tweener.call(function(){lb.remove();});
+            this.mask.tweener.clear().wait(7000).fadeIn(500).wait(1000).call(function(){that.restartStage();});
+            this.stageNumber++;
         }
     },
 
