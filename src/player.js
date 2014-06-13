@@ -60,6 +60,7 @@ tm.define("kumabang.Player", {
     },
     
     startup: function() {
+        this.visible = false;
         this.special = false;
         this.gotoAndPlay("stop");
         this.nowAnimation = "stop";

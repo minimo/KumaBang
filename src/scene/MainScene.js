@@ -157,10 +157,13 @@ tm.define("kumabang.MainScene", {
         //プレイヤー初期化
         var sx = PN_OFFX+this.startX*PN_W;
         var sy = PN_OFFY+this.startY*PN_H;
+        if (this.startPattern == 10) {
+            this.player.scaleX = 1;
+        } else {
+            this.player.scaleX = -1;
+        }
         this.player.setPosition(sx, sy);
-        this.player.scaleX = -1;
-        this.player.visible = false;
-        this.player.special = false;
+        this.player.startup();
 
         //スタート演出初期化
         this.egg.addChildTo(this.playerLayer);
