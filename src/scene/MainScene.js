@@ -102,6 +102,13 @@ tm.define("kumabang.MainScene", {
 
         //目隠し
         this.mask = tm.display.Sprite("bg", SC_W*2, SC_H*2).addChildTo(this);
+
+        //BGM
+        this.bgm = tm.asset.AssetManager.get("bgm1").clone().play();
+        if (this.bgm) {
+            this.bgm.loop = true;
+            this.bgm.currentTime = 0;
+        }
     },
     
     update: function() {
