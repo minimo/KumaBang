@@ -35,7 +35,7 @@ tm.define("kumabang.Player", {
             } else if (this.by != this.y) {
                 if (this.by-this.y > 0) {
                     if (this.nowAnimation !== "moveU") this.gotoAndPlay("moveU");
-                    this.nowAnimation = "moveD";
+                    this.nowAnimation = "moveU";
                 } else {
                     if (this.nowAnimation !== "moveD") this.gotoAndPlay("moveD");
                     this.nowAnimation = "moveD";
@@ -164,22 +164,22 @@ kumabang.createSpriteSheet = function() {
                 frequency: 5,
             },
             "moveL": {
-                frames:[12,13,14],
+                frames:[12,13,14,13],
                 next: "moveL",
                 frequency: 5,
             },
             "moveR": {
-                frames:[15,16,17],
+                frames:[15,16,17,16],
                 next: "moveR",
                 frequency: 5,
             },
             "moveD": {
-                frames:[6,7,8],
+                frames:[6,7,8,7],
                 next: "moveD",
                 frequency: 5,
             },
             "moveU": {
-                frames:[9,10,11],
+                frames:[9,10,11,10],
                 next: "moveU",
                 frequency: 5,
             },
