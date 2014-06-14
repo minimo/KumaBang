@@ -17,5 +17,5 @@ var assets = {
 
     ///sound
     "bgm1":    	"assets/game_maoudamashii_5_town01.mp3",
-    "bgm2":     "assets/arasuji_08.mp3",
+    "bgm2":     "assets/game_maoudamashii_5_town03.mp3",
 }
