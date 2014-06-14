@@ -131,16 +131,7 @@ tm.define("kumabang.MainScene", {
         //ステージデータコピー
         this.stageData = kumabang.stageData[this.stageNumber-1];
 
-        //BGM
-        if (this.bgm) {
-            this.bgm.stop();
-        }
-        this.bgm = tm.asset.AssetManager.get("bgm"+this.stageNumber);
-        if (this.bgm) {
-            this.bgm.loop = true;
-            this.bgm.currentTime = 0;
-            this.bgm.play();
-        }
+        app.playBGM("bgm"+this.stageNumber);
 
         //フラグ初期化
         this.ready = true;

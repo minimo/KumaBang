@@ -13,6 +13,8 @@ kumabang = {
 tm.define("kumabang.CanvasApp", {
     superClass: tm.app.CanvasApp,
 
+    bgm: null,
+
     init: function(id) {
         this.superInit(id);
         this.resize(SC_W, SC_H).fitWindow();
@@ -40,6 +42,21 @@ tm.define("kumabang.CanvasApp", {
 
     exitApp: function() {
         this.stop();
+    },
+
+    //BGM再生
+    playBGM: function(assetName) {
+        if (this.bgm) {
+            this.bgm.stop();
+        }
+        this.bgm = tm.asset.AssetManager.get(assetName);
+        if (this.bgm) {
+            this.bgm.loop = true;
+            this.bgm.currentTime = 0;
+            this.bgm.play();
+            return this.bgm;
+        }
+        return null;
     },
 });
 
