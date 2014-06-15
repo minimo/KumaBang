@@ -149,10 +149,14 @@ tm.define("kumabang.MainScene", {
         for (var y = 0; y < MAP_H; y++){
             for (var x = 0; x < MAP_W; x++){
                 var p = this.addPanel(x, y);
+//                var item = this.stageData.item[y][x];
                 var item = this.stageData.item[y][x];
 
                 if (item != 0) p.shuffle = false;
-                if (item != 0 && item != 6)p.onItem = true;
+                if (item != 0 && item != 6) {
+                    this.addItem(x, y, item);
+                    p.onItem = true;
+                }
                 //スタート位置
                 if (item == 8) {
                     this.startX = x;
@@ -251,8 +255,12 @@ tm.define("kumabang.MainScene", {
     },
 
     //アイテム追加
-    addItem: function(x, y) {
+    addItem: function(x, y, ptn) {
+        ptn = ptn | 0;
+        var p = this.checkMapPanel(x, y);
+        if (p == null) return null;
 
+        p.item = kumabang.Item(ptn).addChildTo(p);
     },
 
     //スクリーン座標上のパネル判定
