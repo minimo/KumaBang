@@ -21,4 +21,5 @@ var assets = {
 
     //sound effect
     "drop":     "assets/se_maoudamashii_onepoint09.mp3",
+    "miss":     "assets/se_maoudamashii_magical06.mp3",
 }
