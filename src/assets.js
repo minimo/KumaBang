@@ -20,5 +20,5 @@ var assets = {
     "bgm2":     "assets/game_maoudamashii_5_town03.mp3",
 
     //sound effect
-    "drop":     "assets/se_maoudamashii_system05.mp3",
+    "drop":     "assets/se_maoudamashii_onepoint09.mp3",
 }
