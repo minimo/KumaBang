@@ -91,6 +91,7 @@ tm.define("kumabang.Panel", {
         if (this._pattern != 3) {
             this.dropped = true;
             this.tweener.clear().to({x: this.x, y: this.y+20, scaleX: 0.5, scaleY: 0.5, alpha: 0}, 2000, "easeOutQuint");
+            tm.asset.AssetManager.get("drop").clone().play();
         } else {
             //十字パネルの場合
             var dummy = tm.display.Sprite("panel", PN_W, PN_H).addChildTo(this);
