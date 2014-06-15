@@ -9,7 +9,7 @@ tm.define("kumabang.Item", {
     superClass: "tm.display.Sprite",
 
     //アイテム種別
-    pattern: 0,
+    _pattern: 0,
     
     //マップ上位置
     mapX: 0,

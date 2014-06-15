@@ -11,6 +11,7 @@ var assets = {
     "bg":       "assets/background.png",
     "panel":    "assets/panel.png",
     "panel2":   "assets/panel2.png",
+    "item":   	"assets/item.png",
 
     "enter":    "assets/etc_egg.png",
     "player":   "assets/hiyoco_nomal_full.png",
