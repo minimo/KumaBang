@@ -57,12 +57,16 @@ tm.define("kumabang.Panel", {
     },
 
     update: function() {
+        //選択出来ない状況判定
         if (this.onPlayer || this.onItem || this.dropped) {
             this.disable = true;
         } else {
             this.disable = false;
         }
-        
+
+        //特殊パネルは選択不可        
+        if (7 < this._pattern && this._pattern < 16) this.disable = true;
+
         if (this.onPlayerBefore && !this.onPlayer) {
             this.drop();
         }
@@ -104,6 +108,9 @@ tm.define("kumabang.Panel", {
             }
         }
         this.scene.score += 1000;
+        this.scene.passPanel++;
+        this.scene.passPanelTotal++;
+
         var lb = tm.display.OutlineLabel("1000", 30).addChildTo(this.scene);
         lb.setPosition(this.x, this.y);
         lb.fontFamily = "'KS-Kohichi-FeltPen'";

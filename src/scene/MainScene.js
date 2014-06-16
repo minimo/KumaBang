@@ -19,6 +19,8 @@ tm.define("kumabang.MainScene", {
     //ゲーム内情報
     score: 0,   //スコア
     life: 3,    //ライフ
+    passPanel: 0,       //ステージ内通過パネル
+    passPanelTotal: 0,  //通過パネル総計
     
     //現在ステージデータ
     stageNumber: 1,
@@ -136,6 +138,9 @@ tm.define("kumabang.MainScene", {
         //フラグ初期化
         this.ready = true;
         this.start = false;
+        
+        //通過パネル数初期化
+        this.passPanel = 0;
 
         //パネル全消去
         if (this.panels) {
@@ -150,24 +155,23 @@ tm.define("kumabang.MainScene", {
             for (var x = 0; x < MAP_W; x++){
                 var ptn = this.stageData.map[y][x];
                 var p = this.addPanel(x, y, ptn);
-
-                var item = this.stageData.item[y][x];
-                if (item != 0) p.shuffle = false;
                 //スタート位置
-                if (item == 8) {
+                if (7 < ptn && ptn < 12) {
                     this.startX = x;
                     this.startY = y;
                     this.startPattern = p.pattern;
                 }
                 //ゴール位置
-                if (item == 9) {
+                if (11 < ptn && ptn < 16) {
                     this.goalX = x;
                     this.goalY = y;
                 }
                 this.panels.push(p);
 
                 //アイテム追加
-                if (0 < item && item < 6) {
+                var item = this.stageData.item[y][x];
+                if (item != 0) p.shuffle = false;
+                if (0 < item && item < 9) {
                     this.addItem(x, y, item);
                     p.onItem = true;
                 }
