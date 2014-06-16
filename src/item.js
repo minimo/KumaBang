@@ -32,19 +32,6 @@ tm.define("kumabang.Item", {
         var that = this;
         this.sprite.tweener.clear().move(this.panel.x, this.panel.y-20, 1000, "easeOutBounce").call(function(){that.ok = true;});
         this.pattern = pattern;
-
-/*
-        //影
-        this.shadow = tm.display.Sprite().addChildTo(this);
-        this.shadow.image = tm.graphics.Canvas()
-        .setStrokeStyle("rgba(0,0,0,0.5)")
-        .setFillStyle(tm.graphics.RadialGradient(50, 50, 0, 50, 50, 50)
-            .addColorStopList([
-                { offset: 0.00, color: "rgba(0,0,0,0.8)" },
-                { offset: 1.00, color: "rgba(0,0,0,0.8)" },
-            ]).toStyle())
-        .fillCircle(80, 80, 16);
-*/
     },
 
     update: function() {
