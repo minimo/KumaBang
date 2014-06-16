@@ -148,15 +148,11 @@ tm.define("kumabang.MainScene", {
         this.panels = [];
         for (var y = 0; y < MAP_H; y++){
             for (var x = 0; x < MAP_W; x++){
-                var p = this.addPanel(x, y);
-//                var item = this.stageData.item[y][x];
-                var item = this.stageData.item[y][x];
+                var ptn = this.stageData.map[y][x];
+                var p = this.addPanel(x, y, ptn);
 
+                var item = this.stageData.item[y][x];
                 if (item != 0) p.shuffle = false;
-                if (item != 0 && item != 6) {
-                    this.addItem(x, y, item);
-                    p.onItem = true;
-                }
                 //スタート位置
                 if (item == 8) {
                     this.startX = x;
@@ -168,8 +164,13 @@ tm.define("kumabang.MainScene", {
                     this.goalX = x;
                     this.goalY = y;
                 }
-
                 this.panels.push(p);
+
+                //アイテム追加
+                if (0 < item && item < 6) {
+                    this.addItem(x, y, item);
+                    p.onItem = true;
+                }
             }
         }
 
@@ -240,7 +241,7 @@ tm.define("kumabang.MainScene", {
     },
 
     //パネル追加
-    addPanel: function(x, y) {
+    addPanel: function(x, y, ptn) {
         if (this.checkMapPanel(x, y)) return null;
 
         var p = kumabang.Panel().addChildTo(this.panelLayer);
@@ -249,7 +250,7 @@ tm.define("kumabang.MainScene", {
         p.mapX = x;
         p.mapY = y;
         p.scene = this;
-        p.pattern = this.stageData.map[y][x];
+        p.pattern = ptn;
 
         return p;
     },
@@ -260,7 +261,7 @@ tm.define("kumabang.MainScene", {
         var p = this.checkMapPanel(x, y);
         if (p == null) return null;
 
-        p.item = kumabang.Item(ptn).addChildTo(p);
+        p.item = kumabang.Item(p, ptn).addChildTo(p);
     },
 
     //スクリーン座標上のパネル判定
