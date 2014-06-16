@@ -27,10 +27,10 @@ tm.define("kumabang.Item", {
 
         //アイテムスプライト
         this.sprite = tm.display.Sprite("item", 32, 32).addChildTo(this);
-        this.sprite.y = -SC_H/2;
+        this.sprite.y = this.panel.y-SC_H*0.7;
         this.sprite.setScale(0.5);
         var that = this;
-        this.sprite.tweener.clear().move(0, -20, 1000, "easeOutBounce").call(function(){that.ok = true;});
+        this.sprite.tweener.clear().move(this.panel.x, this.panel.y-20, 1000, "easeOutBounce").call(function(){that.ok = true;});
         this.pattern = pattern;
 
 /*
@@ -49,7 +49,7 @@ tm.define("kumabang.Item", {
 
     update: function() {
         if (this.ok && this.time % 2 == 0) {
-            this.sprite.y = Math.sin(this.rad*0.1)*-10-20;
+            this.sprite.y = Math.sin(this.rad*0.1)*-10+this.panel.y-20;
             this.rad+=1;
         }
         this.time++;

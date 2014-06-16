@@ -259,9 +259,8 @@ tm.define("kumabang.MainScene", {
     addItem: function(x, y, ptn) {
         ptn = ptn | 0;
         var p = this.checkMapPanel(x, y);
-        if (p == null) return null;
-
-        p.item = kumabang.Item(p, ptn).addChildTo(p);
+        if (p == null || p.item != null) return null;
+        p.item = kumabang.Item(p, ptn).addChildTo(this.itemLayer);
     },
 
     //スクリーン座標上のパネル判定
@@ -288,8 +287,25 @@ tm.define("kumabang.MainScene", {
         return null;
     },
 
+    //マップ座標上のパネル取得
+    getMapPanel: function(x, y) {
+        var len = this.panels.length;
+        for (var i = 0; i< len; i++) {
+            var p = this.panels[i];
+            if (p.mapX == x && p.mapY == y) return p;
+        }
+        return null;
+    },
+
     //マップ上イベントチェック（アイテム取得等）
     checkMapEvent: function(x, y) {
+        var p = this.getMapPanel(x, y);
+        if (p == null) return;
+        var item = p.item;
+        if (p.item == null)return;
+        p.item.ok = false;
+        p.item.tweener.moveBy(0, -20, 200);
+        p.item.remove();
         return;
     },
 
@@ -313,6 +329,7 @@ tm.define("kumabang.MainScene", {
                 var vy = py-player.mapY;
                 var dis = PN_SIZE;
                 var spd = this.speed;
+                player.tweener.call(function(){that.checkMapEvent(px, py);});
                 switch (p.pattern) {
                     case 1: //横
                         if (vx != 0) {
@@ -406,7 +423,6 @@ tm.define("kumabang.MainScene", {
                         goal = true;
                         break;
                 }
-                player.tweener.call(function(){that.checkMapEvent(px, py);});
                 player.mapX = px;
                 player.mapY = py;
             } else {
