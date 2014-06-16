@@ -27,6 +27,7 @@ tm.define("kumabang.Item", {
 
         //アイテムスプライト
         this.sprite = tm.display.Sprite("item", 32, 32).addChildTo(this);
+        this.sprite.x = this.panel.x;
         this.sprite.y = this.panel.y-SC_H*0.7;
         this.sprite.setScale(0.5);
         var that = this;

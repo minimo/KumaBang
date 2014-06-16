@@ -301,11 +301,21 @@ tm.define("kumabang.MainScene", {
     checkMapEvent: function(x, y) {
         var p = this.getMapPanel(x, y);
         if (p == null) return;
-        var item = p.item;
         if (p.item == null)return;
+        p.onItem = false;
         p.item.ok = false;
-        p.item.tweener.moveBy(0, -20, 200);
         p.item.remove();
+
+        this.score += 500;
+        var lb = tm.display.OutlineLabel("500", 30).addChildTo(this.itemLayer);
+        lb.setPosition(p.x, p.y-30);
+        lb.fontFamily = "'KS-Kohichi-FeltPen'";
+        lb.align     = "center";
+        lb.baseline  = "middle";
+        lb.fontSize = 20;
+        lb.outlineWidth = 2;
+        lb.tweener.moveBy(0,-30, 1500,"easeOutQuad").fadeOut(500).call(function(){lb.remove();});
+
         return;
     },
 
