@@ -134,7 +134,9 @@ tm.define("kumabang.MainScene", {
         //ステージデータコピー
         this.stageData = kumabang.stageData[this.stageNumber-1];
 
-        app.playBGM("bgm"+this.stageNumber);
+        if (!this.retryStage) {
+            app.playBGM("bgm"+this.stageNumber);
+        }
 
         //フラグ初期化
         this.ready = true;
