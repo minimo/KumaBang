@@ -22,6 +22,7 @@ tm.define("kumabang.Item", {
     init: function(panel, pattern) {
         //親クラスの初期化
         this.superInit();
+        pattern = pattern | 1;
         
         this.panel = panel;
 
@@ -29,10 +30,36 @@ tm.define("kumabang.Item", {
         this.sprite = tm.display.Sprite("item", 32, 32).addChildTo(this);
         this.sprite.x = this.panel.x;
         this.sprite.y = this.panel.y-SC_H*0.7;
-        this.sprite.setScale(0.5);
+//        this.sprite.setScale(0.5);
         var that = this;
         this.sprite.tweener.clear().move(this.panel.x, this.panel.y-20, 1000, "easeOutBounce").call(function(){that.ok = true;});
-        this.pattern = pattern;
+
+        switch (pattern) {
+            case 1: //りんご
+                this.pattern = 0;
+                break;
+            case 2: //さくらんぼ
+                this.pattern = 20;
+                break;
+            case 3: //メロン
+                this.pattern = 5;
+                break;
+            case 4: //イチゴ
+                this.pattern = 7;
+                break;
+            case 5: //ぶどう
+                this.pattern = 19;
+                break;
+            case 6:
+                this.pattern = 5;
+                break;
+            case 7:
+                this.pattern = 6;
+                break;
+            case 8:
+                this.pattern = 7;
+                break;
+        }
     },
 
     update: function() {

@@ -171,7 +171,7 @@ tm.define("kumabang.MainScene", {
                 //アイテム追加
                 var item = this.stageData.item[y][x];
                 if (item != 0) p.shuffle = false;
-                if (0 < item && item < 9) {
+                if (item > 0) {
                     this.addItem(x, y, item);
                     p.onItem = true;
                 }
@@ -319,8 +319,6 @@ tm.define("kumabang.MainScene", {
         lb.fontSize = 20;
         lb.outlineWidth = 2;
         lb.tweener.moveBy(0,-30, 1500,"easeOutQuad").fadeOut(500).call(function(){lb.remove();});
-
-        return;
     },
 
     //プレイヤー処理（パネル＆アイテム）
@@ -491,7 +489,6 @@ tm.define("kumabang.MainScene", {
                 this.panels.splice(i,1);
             }
         }
-        return null;
     },
 
     //タッチorクリック開始処理
