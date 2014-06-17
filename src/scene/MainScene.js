@@ -146,6 +146,7 @@ tm.define("kumabang.MainScene", {
         //パネル全消去
         if (this.panels) {
             for (var i in this.panels) {
+                if (this.panels[i].item) this.panels[i].item.remove();
                 this.panels[i].remove();
             }
         }
@@ -310,6 +311,7 @@ tm.define("kumabang.MainScene", {
         p.onItem = false;
         p.item.ok = false;
         p.item.remove();
+        p.item = null;
 
         this.score += 500;
         var lb = tm.display.OutlineLabel("500", 30).addChildTo(this.itemLayer);

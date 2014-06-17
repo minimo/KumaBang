@@ -30,16 +30,16 @@ tm.define("kumabang.Item", {
         this.sprite = tm.display.Sprite("item", 32, 32).addChildTo(this);
         this.sprite.x = this.panel.x;
         this.sprite.y = this.panel.y-SC_H*0.7;
-//        this.sprite.setScale(0.5);
+        this.sprite.setScale(0.7);
         var that = this;
-        this.sprite.tweener.clear().move(this.panel.x, this.panel.y-20, 1000, "easeOutBounce").call(function(){that.ok = true;});
+        this.sprite.tweener.clear().wait(rand(0,300)).move(this.panel.x, this.panel.y-20, 1000, "easeOutBounce").call(function(){that.ok = true;});
 
         switch (pattern) {
             case 1: //りんご
                 this.pattern = 0;
                 break;
             case 2: //さくらんぼ
-                this.pattern = 20;
+                this.pattern = 2;
                 break;
             case 3: //メロン
                 this.pattern = 5;
@@ -60,6 +60,7 @@ tm.define("kumabang.Item", {
                 this.pattern = 7;
                 break;
         }
+        this.pattern = 7;
     },
 
     update: function() {
@@ -75,7 +76,7 @@ kumabang.Item.prototype.accessor("pattern", {
     "get": function() { return this._pattern; },
     "set": function(ptn) {
         this._pattern = ptn;
-        this.sprite.setFrameIndex(ptn, 32, 32);
+        this.sprite.setFrameIndex(ptn);
     }
 });
 
