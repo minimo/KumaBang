@@ -30,7 +30,8 @@ tm.define("kumabang.CanvasApp", {
             height: SC_H,
             nextScene: function() {
                 this._onLoadAssets();
-                return kumabang.MainScene();
+//                return kumabang.MainScene();
+                return kumabang.TitleScene();
             }.bind(this),
         });
         loadingScene.bg.canvas.clearColor("black");
