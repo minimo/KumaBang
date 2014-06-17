@@ -23,7 +23,7 @@ tm.define("kumabang.TitleScene", {
         lb.fontSize = 50;
         lb.outlineWidth = 2;
         var lb = this.title2 = tm.display.OutlineLabel("BANGBANG", 30).addChildTo(this);
-        lb.setPosition(SC_W*0.6, SC_H*0.3.5);
+        lb.setPosition(SC_W*0.6, SC_H*0.35);
         lb.align     = "center";
         lb.baseline  = "middle";
         lb.fontSize = 50;
