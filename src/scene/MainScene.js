@@ -25,6 +25,7 @@ tm.define("kumabang.MainScene", {
     //現在ステージデータ
     stageNumber: 1,
     stageData: null,
+    retryStage: false,
 
     //スタート＆ゴールパネル座標
     startX: 0,
@@ -458,6 +459,7 @@ tm.define("kumabang.MainScene", {
             lb.tweener.call(function(){lb.remove();});
             this.mask.tweener.clear().wait(3000).fadeIn(500).wait(1000).call(function(){that.restartStage();});
             tm.asset.AssetManager.get("miss").clone().play();
+            this.retryStage = true;
         } else {
             if (passPanel) passPanel.onPlayer = false;
         }
@@ -478,6 +480,7 @@ tm.define("kumabang.MainScene", {
             lb.tweener.call(function(){lb.remove();});
             this.mask.tweener.clear().wait(7000).fadeIn(500).wait(1000).call(function(){that.restartStage();});
             this.stageNumber++;
+            this.retryStage = false;
         }
     },
 
