@@ -310,20 +310,48 @@ tm.define("kumabang.MainScene", {
         var p = this.getMapPanel(x, y);
         if (p == null) return;
         if (p.item == null)return;
+
+        var kind = p.item.kind;
+        var point = 0;
+        switch (kind) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                point = 500;
+                break;
+            case 6:
+                point = 1000;
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
+            default:
+                point = 0;
+                break;
+        }
+
+        if (point > 0) {
+            this.score += point;
+            var lb = tm.display.OutlineLabel(""+point, 30).addChildTo(this.itemLayer);
+            lb.setPosition(p.x, p.y-30);
+            lb.fontFamily = "'KS-Kohichi-FeltPen'";
+            lb.align     = "center";
+            lb.baseline  = "middle";
+            lb.fontSize = 20;
+            lb.outlineWidth = 2;
+            lb.tweener.moveBy(0,-30, 1500,"easeOutQuad").fadeOut(500).call(function(){lb.remove();});
+        }
+
+        //パネル上アイテム削除
         p.onItem = false;
         p.item.ok = false;
         p.item.remove();
         p.item = null;
-
-        this.score += 500;
-        var lb = tm.display.OutlineLabel("500", 30).addChildTo(this.itemLayer);
-        lb.setPosition(p.x, p.y-30);
-        lb.fontFamily = "'KS-Kohichi-FeltPen'";
-        lb.align     = "center";
-        lb.baseline  = "middle";
-        lb.fontSize = 20;
-        lb.outlineWidth = 2;
-        lb.tweener.moveBy(0,-30, 1500,"easeOutQuad").fadeOut(500).call(function(){lb.remove();});
     },
 
     //プレイヤー処理（パネル＆アイテム）

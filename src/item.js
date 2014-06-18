@@ -5,24 +5,30 @@
  *  This Program is MIT license.
  */
 
+//アイテムパターン用配列
+kumabang.itemPattern = [0,0,2,5,7,19];
+
 tm.define("kumabang.Item", {
     superClass: "tm.app.Object2D",
 
     //アイテム種別
     _pattern: 0,
-    
+
     //所属パネル
     panel: null,
+    
+    //アイテム種別
+    kind: 0,
 
     ok: false,
     rad: 0, 
 
     time: 0,
 
-    init: function(panel, pattern) {
+    init: function(panel, kind) {
         //親クラスの初期化
         this.superInit();
-        pattern = pattern | 1;
+        kind = kind || 1;
         
         this.panel = panel;
 
@@ -34,33 +40,8 @@ tm.define("kumabang.Item", {
         var that = this;
         this.sprite.tweener.clear().wait(rand(0,300)).move(this.panel.x, this.panel.y-20, 1000, "easeOutBounce").call(function(){that.ok = true;});
 
-        switch (pattern) {
-            case 1: //りんご
-                this.pattern = 0;
-                break;
-            case 2: //さくらんぼ
-                this.pattern = 2;
-                break;
-            case 3: //メロン
-                this.pattern = 5;
-                break;
-            case 4: //イチゴ
-                this.pattern = 7;
-                break;
-            case 5: //ぶどう
-                this.pattern = 19;
-                break;
-            case 6:
-                this.pattern = 5;
-                break;
-            case 7:
-                this.pattern = 6;
-                break;
-            case 8:
-                this.pattern = 7;
-                break;
-        }
-        this.pattern = 7;
+        this.kind = kind;
+        this.pattern = kumabang.itemPattern[kind];
     },
 
     update: function() {
