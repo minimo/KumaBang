@@ -17,24 +17,29 @@ tm.define("kumabang.TitleScene", {
         this.bg = tm.display.Sprite("bg", SC_W*2, SC_H*2).addChildTo(this);
 
         var lb = this.title1 = tm.display.OutlineLabel("PIYOPIYO", 30).addChildTo(this);
-        lb.setPosition(SC_W*0.4, SC_H*0.2);
+        lb.setPosition(SC_W*0.4, SC_H*0.2-SC_H*0.6);
+        lb.fontFamily = "'azuki'";
         lb.align     = "center";
         lb.baseline  = "middle";
         lb.fontSize = 50;
         lb.outlineWidth = 2;
+        lb.tweener.move(SC_W*0.4, SC_H*0.2, 3000,"easeOutBounce");
         var lb = this.title2 = tm.display.OutlineLabel("BANGBANG", 30).addChildTo(this);
-        lb.setPosition(SC_W*0.6, SC_H*0.35);
+        lb.setPosition(SC_W*0.6, SC_H*0.35-SC_H*0.6);
+        lb.fontFamily = "'azuki'";
         lb.align     = "center";
         lb.baseline  = "middle";
         lb.fontSize = 50;
         lb.outlineWidth = 2;
+        lb.tweener.move(SC_W*0.6, SC_H*0.35, 3000,"easeOutBounce");
         var lb = this.title3 = tm.display.OutlineLabel("（仮）", 30).addChildTo(this);
-        lb.setPosition(SC_W*0.5, SC_H*0.5);
+        lb.setPosition(SC_W*0.5, SC_H*0.5-SC_H*0.6);
+        lb.fontFamily = "'azuki'";
         lb.align     = "center";
         lb.baseline  = "middle";
         lb.fontSize = 50;
         lb.outlineWidth = 2;
-//        lb.tweener.moveBy(0,-30, 1500,"easeOutQuad").fadeOut(500).call(function(){lb.remove();});
+        lb.tweener.move(SC_W*0.5, SC_H*0.5, 3000,"easeOutBounce");
 
         var lb = this.startLabel = tm.display.OutlineLabel("TOUCH START", 30).addChildTo(this);
         lb.setPosition(SC_W*0.5, SC_H*0.8);
@@ -43,6 +48,8 @@ tm.define("kumabang.TitleScene", {
         lb.baseline  = "middle";
         lb.fontSize = 20;
         lb.outlineWidth = 2;
+        lb.alpha = 0;
+        lb.tweener.fadeIn(2000);
 
         this.mask = tm.display.Sprite("bg", SC_W*2, SC_H*2).addChildTo(this);
         this.mask.tweener.clear().fadeOut(500);

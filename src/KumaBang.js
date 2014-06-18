@@ -23,7 +23,7 @@ tm.define("kumabang.CanvasApp", {
         this.keyboard = tm.input.Keyboard(window);
 
         kumabang.core = this;
-        
+
         var loadingScene = tm.ui["LoadingScene"]({
             assets: assets,
             width: SC_W,
