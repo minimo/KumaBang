@@ -136,6 +136,7 @@ tm.define("kumabang.MainScene", {
 
         if (!this.retryStage) {
             app.playBGM("bgm"+this.stageNumber);
+            app.pushScene(kumabang.TutorialScene(this.stageNumber));
         }
 
         //フラグ初期化

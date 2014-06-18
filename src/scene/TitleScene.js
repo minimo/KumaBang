@@ -23,7 +23,7 @@ tm.define("kumabang.TitleScene", {
         lb.baseline  = "middle";
         lb.fontSize = 50;
         lb.outlineWidth = 2;
-        lb.tweener.move(SC_W*0.4, SC_H*0.2, 3000,"easeOutBounce");
+        lb.tweener.wait(500).move(SC_W*0.4, SC_H*0.2, 3000,"easeOutBounce");
         var lb = this.title2 = tm.display.OutlineLabel("BANGBANG", 30).addChildTo(this);
         lb.setPosition(SC_W*0.6, SC_H*0.35-SC_H*0.6);
         lb.fontFamily = "'azuki'";
@@ -31,15 +31,15 @@ tm.define("kumabang.TitleScene", {
         lb.baseline  = "middle";
         lb.fontSize = 50;
         lb.outlineWidth = 2;
-        lb.tweener.move(SC_W*0.6, SC_H*0.35, 3000,"easeOutBounce");
-        var lb = this.title3 = tm.display.OutlineLabel("（仮）", 30).addChildTo(this);
+        lb.tweener.wait(500).move(SC_W*0.6, SC_H*0.35, 3000,"easeOutBounce");
+        var lb = this.title3 = tm.display.OutlineLabel("かっこかり", 30).addChildTo(this);
         lb.setPosition(SC_W*0.5, SC_H*0.5-SC_H*0.6);
         lb.fontFamily = "'azuki'";
         lb.align     = "center";
         lb.baseline  = "middle";
         lb.fontSize = 50;
         lb.outlineWidth = 2;
-        lb.tweener.move(SC_W*0.5, SC_H*0.5, 3000,"easeOutBounce");
+        lb.tweener.wait(500).move(SC_W*0.5, SC_H*0.5, 3000,"easeOutBounce");
 
         var lb = this.startLabel = tm.display.OutlineLabel("TOUCH START", 30).addChildTo(this);
         lb.setPosition(SC_W*0.5, SC_H*0.8);
