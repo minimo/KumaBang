@@ -26,6 +26,10 @@ var assets = {
 
     //Tutorial
     "tutorial1_1":  "tutorial/tutorial1_1.png",
-    "tutorial1_2":  "tutorial/tutorial1_1.png",
+    "tutorial1_2":  "tutorial/tutorial1_2.png",
+    "tutorial2_1":  "tutorial/tutorial2_1.png",
+    "tutorial2_2":  "tutorial/tutorial2_2.png",
+    "tutorial3_1":  "tutorial/tutorial3_1.png",
+    "tutorial3_2":  "tutorial/tutorial3_2.png",
 }
 
