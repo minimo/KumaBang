@@ -1,4 +1,4 @@
-/*
+﻿/*
  *  KumaBang.js
  *  2014/06/04
  *  @auther minimo  
@@ -28,13 +28,15 @@ tm.define("kumabang.CanvasApp", {
             assets: assets,
             width: SC_W,
             height: SC_H,
+            bgColor: "black",
             nextScene: function() {
                 this._onLoadAssets();
 //                return kumabang.MainScene();
                 return kumabang.TitleScene();
             }.bind(this),
         });
-        loadingScene.bg.canvas.clearColor("black");
+//        loadingScene.bg.canvas.clearColor("black");
+
         this.replaceScene(loadingScene);
   },
 
