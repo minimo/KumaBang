@@ -97,7 +97,7 @@ tm.define("kumabang.MainScene", {
         var that = this;
         var lb = this.scoreLabel = tm.display.OutlineLabel("得点:", 30).addChildTo(this);
         lb.setPosition(8, 32);
-        lb.fontFamily = "'KS-Kohichi-FeltPen'";
+        lb.fontFamily = "KS-Kohichi";
         lb.align     = "left";
         lb.baseline  = "middle";
         lb.fontSize = 20;
@@ -226,7 +226,7 @@ tm.define("kumabang.MainScene", {
         var lb = tm.display.OutlineLabel("３", 30).addChildTo(this);
         lb.setPosition(SC_W/2, -SC_H/2);
         lb.alpha = 0;
-        lb.fontFamily = "'KS-Kohichi-FeltPen'";
+        lb.fontFamily = "KS-Kohichi";
         lb.align     = "center";
         lb.baseline  = "middle";
         lb.fontSize = 60;
@@ -340,7 +340,7 @@ tm.define("kumabang.MainScene", {
             this.score += point;
             var lb = tm.display.OutlineLabel(""+point, 30).addChildTo(this.itemLayer);
             lb.setPosition(p.x, p.y-30);
-            lb.fontFamily = "'KS-Kohichi-FeltPen'";
+            lb.fontFamily = "KS-Kohichi";
             lb.align     = "center";
             lb.baseline  = "middle";
             lb.fontSize = 20;
@@ -482,7 +482,7 @@ tm.define("kumabang.MainScene", {
             var that = this;
             var lb = tm.display.OutlineLabel("ミス！！", 30).addChildTo(this);
             lb.setPosition(SC_W/2, -SC_H/2);
-            lb.fontFamily = "'KS-Kohichi-FeltPen'";
+            lb.fontFamily = "KS-Kohichi";
             lb.align     = "center";
             lb.baseline  = "middle";
             lb.fontSize = 60;
@@ -503,7 +503,7 @@ tm.define("kumabang.MainScene", {
             var that = this;
             var lb = tm.display.OutlineLabel("ゴール！！", 30).addChildTo(this);
             lb.setPosition(SC_W/2, -SC_H/2);
-            lb.fontFamily = "'KS-Kohichi-FeltPen'";
+            lb.fontFamily = "KS-Kohichi";
             lb.align     = "center";
             lb.baseline  = "middle";
             lb.fontSize = 60;

@@ -44,7 +44,7 @@ tm.define("kumabang.Panel", {
             var lb = this.rateLabel = tm.display.OutlineLabel("50%", 30).addChildTo(this);
             lb.x = 0;
             lb.y = 0;
-            lb.fontFamily = "'KS-Kohichi-FeltPen'";
+            lb.fontFamily = "KS-Kohichi";
             lb.align     = "center";
             lb.baseline  = "middle";
             lb.fontSize = 20;
@@ -113,7 +113,7 @@ tm.define("kumabang.Panel", {
 
         var lb = tm.display.OutlineLabel("1000", 30).addChildTo(this.scene);
         lb.setPosition(this.x, this.y);
-        lb.fontFamily = "'KS-Kohichi-FeltPen'";
+        lb.fontFamily = "KS-Kohichi";
         lb.align     = "center";
         lb.baseline  = "middle";
         lb.fontSize = 20;

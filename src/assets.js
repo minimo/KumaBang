@@ -24,6 +24,10 @@ var assets = {
     "drop":     "assets/se_maoudamashii_onepoint09.mp3",
     "miss":     "assets/se_maoudamashii_magical06.mp3",
 
+    //Font
+    "KS-Kohichi":   "font/KS-Kohichi-FeltPen.ttf",
+    "azuki":        "font/azuki.ttf",
+
     //Tutorial
     "tutorial1_1":  "tutorial/tutorial1_1.png",
     "tutorial1_2":  "tutorial/tutorial1_2.png",

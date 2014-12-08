@@ -22,21 +22,21 @@ tm.define("kumabang.TutorialScene", {
         var that = this;
         var lb = this.skip = tm.display.OutlineLabel("SKIP", 30).addChildTo(this);
         lb.setPosition(SC_W*0.1, SC_H*0.9-SC_H);
-        lb.fontFamily = "'KS-Kohichi-FeltPen'";
+        lb.fontFamily = "KS-Kohichi";
         lb.align     = "left";
         lb.baseline  = "middle";
         lb.tweener.wait(2000).move(SC_W*0.1, SC_H*0.9, 1500,"easeOutElastic");
 
         var lb = this.next = tm.display.OutlineLabel("NEXT>", 30).addChildTo(this);
         lb.setPosition(SC_W*0.7, SC_H*0.9-SC_H);
-        lb.fontFamily = "'KS-Kohichi-FeltPen'";
+        lb.fontFamily = "KS-Kohichi";
         lb.align     = "left";
         lb.baseline  = "middle";
         lb.tweener.wait(2000).move(SC_W*0.7, SC_H*0.9, 1500,"easeOutElastic");
 
         var lb = this.scoreLabel = tm.display.OutlineLabel("STAGE "+stageNumber, 50).addChildTo(this);
         lb.setPosition(SC_W/2, SC_H/2);
-        lb.fontFamily = "'KS-Kohichi-FeltPen'";
+        lb.fontFamily = "KS-Kohichi";
         lb.align     = "center";
         lb.baseline  = "middle";
         lb.alpha = 0;
