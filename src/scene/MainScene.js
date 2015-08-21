@@ -79,7 +79,6 @@ tm.define("tmapp.MainScene", {
         this.itemLayer = tm.app.Object2D().addChildTo(this);
 
         //プレイヤー準備        
-        tmapp.createSpriteSheet();
         this.player = tmapp.Player().addChildTo(this.playerLayer);
         this.player.setPosition(PN_OFFX, PN_OFFY);
         this.player.visible = false;
