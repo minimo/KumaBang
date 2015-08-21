@@ -490,7 +490,7 @@ tm.define("tmapp.MainScene", {
             lb.tweener.move(SC_W/2, SC_H/2, 1000, "easeOutBounce").wait(1000).fadeOut(100);
             lb.tweener.call(function(){lb.remove();});
             this.mask.tweener.clear().wait(3000).fadeIn(500).wait(1000).call(function(){that.restartStage();});
-            tm.asset.AssetManager.get("miss").clone().play();
+            tmapp.playSE("miss");
             this.retryStage = true;
         } else {
             if (passPanel) passPanel.onPlayer = false;
