@@ -6,7 +6,7 @@
  *
  */
 
-tm.define("kumabang.TitleScene", {
+tm.define("tmapp.TitleScene", {
     superClass: tm.app.Scene,
 
     init: function() {
@@ -70,7 +70,7 @@ tm.define("kumabang.TitleScene", {
     ontouchend: function(e) {
         var x = e.x;
         var y = e.y;
-        app.replaceScene(kumabang.MainScene());
+        app.replaceScene(tmapp.MainScene());
     },
 
 });

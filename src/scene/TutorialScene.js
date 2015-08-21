@@ -6,7 +6,7 @@
  *
  */
 
-tm.define("kumabang.TutorialScene", {
+tm.define("tmapp.TutorialScene", {
     superClass: tm.app.Scene,
     
     page: 0,

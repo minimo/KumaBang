@@ -64,7 +64,7 @@ app = {};
 
 //アプリケーションメイン
 tm.main(function() {
-    app = kumabang.CanvasApp("#world");
+    app = tmapp.CanvasApp("#world");
     app.run();
 });
 

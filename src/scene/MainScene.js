@@ -6,7 +6,7 @@
  *
  */
 
-tm.define("kumabang.MainScene", {
+tm.define("tmapp.MainScene", {
     superClass: tm.app.Scene,
 
     //マルチタッチ補助クラス
@@ -79,13 +79,13 @@ tm.define("kumabang.MainScene", {
         this.itemLayer = tm.app.Object2D().addChildTo(this);
 
         //プレイヤー準備        
-        kumabang.createSpriteSheet();
-        this.player = kumabang.Player().addChildTo(this.playerLayer);
+        tmapp.createSpriteSheet();
+        this.player = tmapp.Player().addChildTo(this.playerLayer);
         this.player.setPosition(PN_OFFX, PN_OFFY);
         this.player.visible = false;
 
         //ステージ開始時演出用
-        this.egg = kumabang.Egg();
+        this.egg = tmapp.Egg();
         this.egg.player = this.player;
         this.egg.setPosition(PN_OFFX, PN_OFFY);
 
@@ -132,11 +132,11 @@ tm.define("kumabang.MainScene", {
     //ステージ初期化
     initStage: function() {
         //ステージデータコピー
-        this.stageData = kumabang.stageData[this.stageNumber-1];
+        this.stageData = tmapp.stageData[this.stageNumber-1];
 
         if (!this.retryStage) {
             app.playBGM("bgm"+this.stageNumber);
-            app.pushScene(kumabang.TutorialScene(this.stageNumber));
+            app.pushScene(tmapp.TutorialScene(this.stageNumber));
         }
 
         //フラグ初期化
@@ -253,7 +253,7 @@ tm.define("kumabang.MainScene", {
     addPanel: function(x, y, ptn) {
         if (this.checkMapPanel(x, y)) return null;
 
-        var p = kumabang.Panel().addChildTo(this.panelLayer);
+        var p = tmapp.Panel().addChildTo(this.panelLayer);
         p.x = x*PN_W+PN_OFFX;
         p.y = y*PN_H+PN_OFFY;
         p.mapX = x;
@@ -269,7 +269,7 @@ tm.define("kumabang.MainScene", {
         ptn = ptn | 0;
         var p = this.checkMapPanel(x, y);
         if (p == null || p.item != null) return null;
-        p.item = kumabang.Item(p, ptn).addChildTo(this.itemLayer);
+        p.item = tmapp.Item(p, ptn).addChildTo(this.itemLayer);
     },
 
     //スクリーン座標上のパネル判定

@@ -6,11 +6,11 @@
  */
 
 //namespace tiger
-kumabang = {
+tmapp = {
     core: null,
 };
 
-tm.define("kumabang.CanvasApp", {
+tm.define("tmapp.CanvasApp", {
     superClass: tm.app.CanvasApp,
 
     bgm: null,
@@ -22,7 +22,7 @@ tm.define("kumabang.CanvasApp", {
         this.background = "rgba(0, 0, 0, 0)";
         this.keyboard = tm.input.Keyboard(window);
 
-        kumabang.core = this;
+        tmapp.core = this;
 
         var loadingScene = tm.ui["LoadingScene"]({
             assets: assets,
@@ -31,8 +31,8 @@ tm.define("kumabang.CanvasApp", {
             bgColor: "black",
             nextScene: function() {
                 this._onLoadAssets();
-//                return kumabang.MainScene();
-                return kumabang.TitleScene();
+//                return tmapp.MainScene();
+                return tmapp.TitleScene();
             }.bind(this),
         });
 //        loadingScene.bg.canvas.clearColor("black");

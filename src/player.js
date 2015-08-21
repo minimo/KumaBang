@@ -6,7 +6,7 @@
  */
 
 //プレイヤーキャラクター管理クラス
-tm.define("kumabang.Player", {
+tm.define("tmapp.Player", {
     superClass: "tm.display.AnimationSprite",
 
     //プレイヤーの現在マップ座標    
@@ -91,7 +91,7 @@ tm.define("kumabang.Player", {
 });
 
 //開始時プレイヤーキャラクター
-tm.define("kumabang.Egg", {
+tm.define("tmapp.Egg", {
     superClass: "tm.display.AnimationSprite",
 
     finished: false,
@@ -115,7 +115,7 @@ tm.define("kumabang.Egg", {
 });
 
 //スプライトシート作成
-kumabang.createSpriteSheet = function() {
+tmapp.createSpriteSheet = function() {
     egg = tm.asset.SpriteSheet({
         image: "enter",
         frame: {

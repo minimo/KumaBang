@@ -6,9 +6,9 @@
  */
 
 //アイテムパターン用配列
-kumabang.itemPattern = [0,0,2,5,7,19];
+tmapp.itemPattern = [0,0,2,5,7,19];
 
-tm.define("kumabang.Item", {
+tm.define("tmapp.Item", {
     superClass: "tm.app.Object2D",
 
     //アイテム種別
@@ -41,7 +41,7 @@ tm.define("kumabang.Item", {
         this.sprite.tweener.clear().wait(rand(0,300)).move(this.panel.x, this.panel.y-20, 1000, "easeOutBounce").call(function(){that.ok = true;});
 
         this.kind = kind;
-        this.pattern = kumabang.itemPattern[kind];
+        this.pattern = tmapp.itemPattern[kind];
     },
 
     update: function() {
@@ -53,7 +53,7 @@ tm.define("kumabang.Item", {
     },
 });
 
-kumabang.Item.prototype.accessor("pattern", {
+tmapp.Item.prototype.accessor("pattern", {
     "get": function() { return this._pattern; },
     "set": function(ptn) {
         this._pattern = ptn;

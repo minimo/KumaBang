@@ -5,7 +5,7 @@
  *  This Program is MIT license.
  */
 
-tm.define("kumabang.Panel", {
+tm.define("tmapp.Panel", {
     superClass: "tm.display.Sprite",
 
     //選択中フラグ
@@ -122,7 +122,7 @@ tm.define("kumabang.Panel", {
     },
 });
 
-kumabang.Panel.prototype.accessor("pattern", {
+tmapp.Panel.prototype.accessor("pattern", {
     "get": function() { return this._pattern; },
     "set": function(ptn) {
         this._pattern = ptn;

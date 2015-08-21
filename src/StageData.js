@@ -17,11 +17,11 @@
 // 8:ライフ
 // 9:爆弾
 
-kumabang.numStage = 0;
-kumabang.stageData = [];
+tmapp.numStage = 0;
+tmapp.stageData = [];
 
 //ステージ１
-tm.define("kumabang.Stage1", {
+tm.define("tmapp.Stage1", {
 	number: 1,              //ステージ番号
 	needConditon: false,    //クリア条件有りフラグ
 	clearOK: true,          //条件を満たしているか
@@ -53,11 +53,11 @@ tm.define("kumabang.Stage1", {
 		return true;
 	},
 });
-kumabang.stageData[kumabang.numStage] = kumabang.Stage1();
-kumabang.numStage++;
+tmapp.stageData[tmapp.numStage] = tmapp.Stage1();
+tmapp.numStage++;
 
 //ステージ２
-tm.define("kumabang.Stage2", {
+tm.define("tmapp.Stage2", {
 	number: 2,              //ステージ番号
 	needConditon: false,    //クリア条件有りフラグ
 	clearOK: true,          //条件を満たしているか
@@ -89,11 +89,11 @@ tm.define("kumabang.Stage2", {
 		return true;
 	},
 });
-kumabang.stageData[kumabang.numStage] = kumabang.Stage2();
-kumabang.numStage++;
+tmapp.stageData[tmapp.numStage] = tmapp.Stage2();
+tmapp.numStage++;
 
 //ステージ３
-tm.define("kumabang.Stage3", {
+tm.define("tmapp.Stage3", {
 	number: 3,              //ステージ番号
 	needConditon: false,    //クリア条件有りフラグ
 	clearOK: true,          //条件を満たしているか
@@ -125,11 +125,11 @@ tm.define("kumabang.Stage3", {
 		return true;
 	},
 });
-kumabang.stageData[kumabang.numStage] = kumabang.Stage3();
-kumabang.numStage++;
+tmapp.stageData[tmapp.numStage] = tmapp.Stage3();
+tmapp.numStage++;
 
 //ステージ４
-tm.define("kumabang.Stage4", {
+tm.define("tmapp.Stage4", {
 	number: 4,              //ステージ番号
 	needConditon: false,    //クリア条件有りフラグ
 	clearOK: true,          //条件を満たしているか
@@ -161,11 +161,11 @@ tm.define("kumabang.Stage4", {
 		return true;
 	},
 });
-kumabang.stageData[kumabang.numStage] = kumabang.Stage4();
-kumabang.numStage++;
+tmapp.stageData[tmapp.numStage] = tmapp.Stage4();
+tmapp.numStage++;
 
 //ステージ５
-tm.define("kumabang.Stage5", {
+tm.define("tmapp.Stage5", {
 	number: 5,              //ステージ番号
 	needConditon: false,    //クリア条件有りフラグ
 	clearOK: true,          //条件を満たしているか
@@ -197,5 +197,5 @@ tm.define("kumabang.Stage5", {
 		return true;
 	},
 });
-kumabang.stageData[kumabang.numStage] = kumabang.Stage5();
-kumabang.numStage++;
+tmapp.stageData[tmapp.numStage] = tmapp.Stage5();
+tmapp.numStage++;
