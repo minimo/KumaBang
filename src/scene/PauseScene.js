@@ -24,7 +24,7 @@ tm.define("tmapp.PauseScene", {
         this.dialog = tmapp.ConfirmDialog("EXIT GAME?", ["YES", "NO"]);
 
         //バックグラウンド
-        this.bg = tm.display.RectangleShape({width: SC_W, height: SC_H, fillStyle: appMain.bgColor, strokeStyle: appMain.bgColor})
+        this.bg = tm.display.RectangleShape({width: SC_W, height: SC_H, fillStyle: app.bgColor, strokeStyle: app.bgColor})
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
 
@@ -42,7 +42,7 @@ tm.define("tmapp.PauseScene", {
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.76)
             .addEventListener("pushed", function() {
-                appMain.popScene();
+                app.popScene();
             });
 
         //終了ボタン
@@ -50,7 +50,7 @@ tm.define("tmapp.PauseScene", {
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.85)
             .addEventListener("pushed", function() {
-                appMain.pushScene(that.dialog);
+                app.pushScene(that.dialog);
             });
 
         this.time = 0;
@@ -62,7 +62,7 @@ tm.define("tmapp.PauseScene", {
 
     onresume: function() {
         if (this.dialog.answer == true) {
-            appMain.replaceScene(tmapp.TitleScene());
+            app.replaceScene(tmapp.TitleScene());
         }
     },
 
@@ -94,7 +94,7 @@ tm.define("tmapp.ConfirmDialog", {
         fontSize = fontSize || 50;
 
         //バックグラウンド
-        tm.display.RoundRectangleShape({width: SC_W-20, height: SC_H*0.3, fillStyle: appMain.bgColor, lineWidth: 4})
+        tm.display.RoundRectangleShape({width: SC_W-20, height: SC_H*0.3, fillStyle: app.bgColor, lineWidth: 4})
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
 
@@ -125,7 +125,7 @@ tm.define("tmapp.ConfirmDialog", {
             .setPosition(SC_W*0.5, SC_H*0.5)
             .addEventListener("pushed", function() {
                 that.answer = true;
-                appMain.popScene();
+                app.popScene();
             });
 
         //ＮＯ
@@ -134,7 +134,7 @@ tm.define("tmapp.ConfirmDialog", {
             .setPosition(SC_W*0.5, SC_H*0.58)
             .addEventListener("pushed", function() {
                 that.answer = false;
-                appMain.popScene();
+                app.popScene();
             });
     },
 });
@@ -159,7 +159,7 @@ tm.define("tmapp.AlertDialog", {
         param = {}.$extend(DEFALT_ALERTPARAM, param);
 
         //バックグラウンド
-        tm.display.RoundRectangleShape({width: SC_W-20, height: param.height, fillStyle: appMain.bgColor, lineWidth: 4})
+        tm.display.RoundRectangleShape({width: SC_W-20, height: param.height, fillStyle: app.bgColor, lineWidth: 4})
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
 
@@ -194,7 +194,7 @@ tm.define("tmapp.AlertDialog", {
             .setPosition(SC_W*0.5, SC_H*0.55)
             .addEventListener("pushed", function() {
                 that.answer = false;
-                appMain.popScene();
+                app.popScene();
             });
     },
 });

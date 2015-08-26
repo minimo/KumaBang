@@ -21,7 +21,7 @@ tm.define("tmapp.CreditScene", {
         var sizeURL = 25;
 
         //バックグラウンド
-        this.bg = tm.display.RectangleShape({width: SC_W, height: SC_H, fillStyle: appMain.bgColor, strokeStyle: appMain.bgColor})
+        this.bg = tm.display.RectangleShape({width: SC_W, height: SC_H, fillStyle: app.bgColor, strokeStyle: app.bgColor})
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
         
@@ -108,7 +108,7 @@ tm.define("tmapp.CreditScene", {
     ontouchend: function(e) {
         if (!this.btn.push) {
             this.mask.tweener.clear().fadeOut(200);
-            appMain.popScene();
+            app.popScene();
         }
     },
 

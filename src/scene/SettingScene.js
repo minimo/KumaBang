@@ -22,7 +22,7 @@ tm.define("tmapp.SettingScene", {
         var that = this;
 
         //バックグラウンド
-        this.bg = tm.display.RectangleShape({width: SC_W, height: SC_H, fillStyle: appMain.bgColor, strokeStyle: appMain.bgColor})
+        this.bg = tm.display.RectangleShape({width: SC_W, height: SC_H, fillStyle: app.bgColor, strokeStyle: app.bgColor})
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
 
@@ -38,9 +38,9 @@ tm.define("tmapp.SettingScene", {
             .setPosition(SC_W*0.5, SC_H*0.85)
             .addEventListener("pushed", function() {
                 that.mask.tweener.clear().fadeOut(200);
-                appMain.createHandList();
-                appMain.saveConfig();
-                appMain.popScene();
+                app.createHandList();
+                app.saveConfig();
+                app.popScene();
             });
 
         //目隠し
